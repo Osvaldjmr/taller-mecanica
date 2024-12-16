@@ -1,0 +1,121 @@
+[{
+  "_id": {
+    "$oid": "67607f2b1e61a3854274d792"
+  },
+  "nombre": "jose",
+  "tipo": "amarillo",
+  "marca": "grefusa",
+  "cantidad": "3",
+  "descripcion": "hola qué tal",
+  "foto": "fotoTest"
+},
+{
+  "_id": {
+    "$oid": "67607fd21e61a3854274d794"
+  },
+  "nombre": "compresor_aire",
+  "tipo": "",
+  "marca": "FIXAMI",
+  "cantidad": "3",
+  "descripcion": "Imprescindible para trabajar con máquinas neumáticas e inflar neumáticos.",
+  "foto": ""
+},
+{
+  "_id": {
+    "$oid": "676080221e61a3854274d796"
+  },
+  "nombre": "gato_hidraulico",
+  "tipo": "",
+  "marca": "FIXAMI",
+  "cantidad": "3",
+  "descripcion": "Almacenan y organizan herramientas para facilitar el trabajo.",
+  "foto": ""
+},
+{
+  "_id": {
+    "$oid": "676080691e61a3854274d798"
+  },
+  "nombre": "carro_herramientas",
+  "tipo": "",
+  "marca": "transTools",
+  "cantidad": "10",
+  "descripcion": "Almacenan y organizan herramientas para facilitar el trabajo.",
+  "foto": ""
+},
+{
+  "_id": {
+    "$oid": "676080901e61a3854274d79a"
+  },
+  "nombre": "lampara",
+  "tipo": "",
+  "marca": "FIXAMI",
+  "cantidad": "12",
+  "descripcion": "Proporcionan iluminación en áreas de trabajo con poca luz.",
+  "foto": ""
+},
+{
+  "_id": {
+    "$oid": "676080cc1e61a3854274d79c"
+  },
+  "nombre": "llave_impacto",
+  "tipo": "",
+  "marca": "megaMech",
+  "cantidad": "2",
+  "descripcion": "Ideales para aflojar y apretar tuercas rápidamente.",
+  "foto": ""
+},
+{
+  "_id": {
+    "$oid": "676081011e61a3854274d79e"
+  },
+  "nombre": "manguera",
+  "tipo": "",
+  "marca": "FIXAMI",
+  "cantidad": "3",
+  "descripcion": "Para fluídos o aire comprimido",
+  "foto": ""
+},
+{
+  "_id": {
+    "$oid": "676081331e61a3854274d7a0"
+  },
+  "nombre": "fijador",
+  "tipo": "",
+  "marca": "megaMech",
+  "cantidad": "4",
+  "descripcion": "Para colocar piezas y fijar roscas.",
+  "foto": ""
+},
+{
+  "_id": {
+    "$oid": "676081651e61a3854274d7a2"
+  },
+  "nombre": "multímetro",
+  "tipo": "",
+  "marca": "FIXAMI",
+  "cantidad": "8",
+  "descripcion": "Mide magnitudes eléctricas y realiza comprobaciones en baterías y sistemas.",
+  "foto": ""
+},
+{
+  "_id": {
+    "$oid": "676081841e61a3854274d7a4"
+  },
+  "nombre": "mesa_trabajo",
+  "tipo": "",
+  "marca": "megaMech",
+  "cantidad": "6",
+  "descripcion": "Proporcionan un espacio de trabajo para reparaciones.",
+  "foto": ""
+},
+{
+  "_id": {
+    "$oid": "676081b01e61a3854274d7a6"
+  },
+  "nombre": "llave_dinometrica",
+  "tipo": "",
+  "marca": "FIXAMI",
+  "cantidad": "7",
+  "descripcion": " Aprieta tuercas y tornillos con un par de apriete específico.",
+  "foto": ""
+}]
