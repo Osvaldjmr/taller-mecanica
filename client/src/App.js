@@ -1,7 +1,9 @@
-// Autores: Borja, Ana Maria, Natali, Osvaldo
-// Fecha: 17/12/2024
-// Descripción: Implementación del login para mecánico/encargado
-// Versión de la app: 1.0.0
+
+//Autores Borja, Ana Maria, Natali, Osvaldo 
+// Fecha 17/12/2024
+//Deescripcion Implementación del login para mecanico/encargado
+// Versión de la app 1.0.0
+
 
 import React from "react";
 import "./App.css"; // Importamos el archivo de estilos CSS
@@ -24,7 +26,11 @@ function App() {
           {/* Etiqueta para el campo Email */}
           <label>Email</label>
           {/* Input para ingresar el Email */}
+
           <input type="email" placeholder="Enter your email" />
+
+          <input type="email" placeholder=" " />
+
         </div>
 
         {/* Grupo para el campo Password */}
@@ -32,7 +38,11 @@ function App() {
           {/* Etiqueta para el campo Password */}
           <label>Password</label>
           {/* Input para ingresar la Password */}
+
           <input type="password" placeholder="Enter your password" />
+
+          <input type="password" placeholder=" " />
+
         </div>
 
         {/* Botón de envío */}
