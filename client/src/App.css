@@ -1,0 +1,103 @@
+/* Autores Borja, Ana Maria, Natali, Osvaldo 
+Fecha 17/12/2024
+Deescripcion Implementación del login para mecanico/encargado , este es el diseño
+Versión de la app 1.0.0 */
+
+
+/* Contenedor principal que centra el formulario y define el tamaño */
+.login-container {
+  width: 350px;
+  /* Ancho del contenedor */
+  margin: 0 auto;
+  /* Centra horizontalmente */
+  padding: 20px;
+  /* Espaciado interno */
+  text-align: center;
+  /* Centra el texto */
+  border: 2px solid #ccc;
+  /* Borde con color gris claro */
+  border-radius: 10px;
+  /* Bordes redondeados */
+  font-family: Arial, sans-serif;
+  /* Fuente del texto */
+}
+
+/* Encabezado principal (Stock de herramientas) */
+.login-container h1 {
+  font-size: 24px;
+  /* Tamaño del texto */
+  margin-bottom: 10px;
+  /* Espacio inferior */
+}
+
+/* Subtítulo (Login) */
+.login-container h2 {
+  font-size: 18px;
+  /* Tamaño del texto */
+  margin-bottom: 20px;
+  /* Espacio inferior */
+  color: #555;
+  /* Color de texto gris */
+}
+
+/* Estilos para cada grupo del formulario (Email y Password) */
+.form-group {
+  text-align: left;
+  /* Alinea el texto a la izquierda */
+  margin-bottom: 20px;
+  /* Espacio inferior entre grupos */
+  position: relative;
+  /* Posicionamiento para posibles ajustes */
+}
+
+/* Etiquetas (Email y Password) */
+.form-group label {
+  display: block;
+  /* Muestra las etiquetas en una línea separada */
+  margin-bottom: 5px;
+  /* Espacio entre la etiqueta y el input */
+  color: #555;
+  /* Color gris */
+}
+
+/* Inputs del formulario (Email y Password) */
+.form-group input {
+  width: 100%;
+  /* Ancho completo del contenedor */
+  border: none;
+  /* Sin bordes */
+  border-bottom: 2px solid #000;
+  /* Línea inferior negra */
+  outline: none;
+  /* Elimina el contorno al seleccionar */
+  font-size: 16px;
+  /* Tamaño de la letra */
+  padding: 5px;
+  /* Espaciado interno */
+  box-sizing: border-box;
+  /* Incluye padding y border en el ancho total */
+  background-color: transparent;
+  /* Fondo transparente */
+}
+
+/* Estilos para el botón LOGIN */
+button {
+  width: 100px;
+  /* Ancho fijo */
+  padding: 5px;
+  /* Espaciado interno */
+  font-size: 16px;
+  /* Tamaño de la letra */
+  background-color: #f8f8f8;
+  /* Color de fondo claro */
+  border: 1px solid #000;
+  /* Borde negro */
+  cursor: pointer;
+  /* Cambia el cursor a una mano al pasar por encima */
+}
+
+/* Efecto al pasar el mouse sobre el botón */
+button:hover {
+  background-color: #ddd;
+  /* Fondo gris claro */
+}
