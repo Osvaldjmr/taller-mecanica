@@ -32,8 +32,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+<<<<<<< HEAD
   },
   "devDependencies": {
     "nodemon": "^3.1.9"
+=======
+>>>>>>> 96aa7fdb51c607acc99db382b84d7cc4e4f9b6f3
   }
 }
