@@ -1,32 +1,25 @@
-//Autores Borja, Ana Maria, Natali, Osvaldo 
-// Fecha 17/12/2024
-//Deescripcion Implementación del login para mecanico/encargado
-// Versión de la app 1.0.0
-
-
+// Login.js
 import React, { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase"; // Importar Firebase Auth
-import "./Login.css";
+import { signInWithEmailAndPassword } from "firebase/auth"; // Importa la función de autenticación
+import { auth } from "../firebase"; // Importa la configuración de Firebase
+import "../styles/Login.css"; // Importa los estilos específicos
 
 function Login({ onLogin }) {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
+    const [username, setUsername] = useState(""); // Estado para el nombre de usuario
+    const [password, setPassword] = useState(""); // Estado para la contraseña
+    const [error, setError] = useState(""); // Estado para mostrar errores
 
-    // Manejar el login
+    // Maneja el envío del formulario
     const handleSubmit = (e) => {
-        e.preventDefault();
-        setError(""); // Reiniciar errores
+        e.preventDefault(); // Previene el comportamiento por defecto del formulario
+        setError(""); // Reinicia el estado de error
 
-        // Firebase Authentication: login con correo y contraseña
-        signInWithEmailAndPassword(auth, email, password)
-            .then(() => {
-                onLogin(); // Actualiza el estado para mostrar el Dashboard
-            })
-            .catch((err) => {
-                setError("Error de autenticación. Verifica tus credenciales.");
-            });
+        const fakeEmail = `${username}@fake.com`; // Convierte el nombre de usuario en un email falso
+
+        // Inicia sesión con Firebase Authentication
+        signInWithEmailAndPassword(auth, fakeEmail, password)
+            .then(() => onLogin()) // Si la autenticación es exitosa, cambia el estado de App
+            .catch(() => setError("Credenciales incorrectas. Inténtalo de nuevo."));
     };
 
     return (
@@ -35,16 +28,16 @@ function Login({ onLogin }) {
             <h2>Login</h2>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label>Email</label>
+                    <label>Nombre de usuario</label>
                     <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        type="text"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
                         required
                     />
                 </div>
                 <div className="form-group">
-                    <label>Password</label>
+                    <label>Contraseña</label>
                     <input
                         type="password"
                         value={password}

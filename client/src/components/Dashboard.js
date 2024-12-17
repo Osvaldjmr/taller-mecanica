@@ -1,49 +1,44 @@
-import React from "react";
-import "./Dashboard.css"; // Importa los estilos específicos del dashboard
+// Dashboard.js
+import React, { useEffect, useState } from "react";
+import { auth, db } from "../firebase"; // Importa servicios de Firebase
+import { doc, getDoc } from "firebase/firestore"; // Funciones de Firestore
+import { signOut } from "firebase/auth"; // Función para cerrar sesión
+import "../styles/Dashboard.css"; // Importa estilos específicos
 
-// Componente Dashboard
 function Dashboard() {
+    const [role, setRole] = useState(""); // Estado para almacenar el rol del usuario
+
+    // Obtiene el rol del usuario autenticado desde Firestore
+    useEffect(() => {
+        const fetchRole = async () => {
+            const user = auth.currentUser; // Obtiene el usuario actual
+            if (user) {
+                const userRef = doc(db, "users", user.uid); // Referencia al documento del usuario
+                const userSnap = await getDoc(userRef); // Obtiene los datos
+                if (userSnap.exists()) {
+                    setRole(userSnap.data().role); // Guarda el rol en el estado
+                }
+            }
+        };
+        fetchRole();
+    }, []);
+
+    // Maneja el cierre de sesión
+    const handleLogout = () => {
+        signOut(auth); // Cierra sesión en Firebase
+        window.location.reload(); // Recarga la aplicación para volver al login
+    };
+
     return (
         <div className="dashboard-container">
-            {/* Encabezado con logo y título */}
             <header>
-                <img src="logo.png" alt="Logo" className="logo" /> {/* Logo */}
-                <h2>Área de encargados</h2> {/* Descripción */}
+                <h1>Área de {role}</h1>
+                <button onClick={handleLogout}>Cerrar sesión</button>
             </header>
-
-            {/* Botones de navegación */}
-            <div className="navigation-buttons">
-                <button>Incidencias</button>
-                <button>Necesidad de material</button>
-                <button>Alta de material</button>
-                <button>Actualizar material</button>
-                <button>Eliminar material</button>
-            </div>
-
-            {/* Barra de búsqueda */}
-            <div className="search-bar">
-                <input type="text" placeholder="Buscar stock" /> {/* Input de búsqueda */}
-                <button>🔍</button> {/* Botón de búsqueda */}
-            </div>
-
-            {/* Grid con tarjetas de herramientas */}
-            <div className="tools-grid">
-                {/* Renderiza 4 tarjetas con información de herramientas */}
-                {Array(4)
-                    .fill(null)
-                    .map((_, index) => (
-                        <div key={index} className="tool-card">
-                            <div className="tool-img">aquí, img</div> {/* Imagen */}
-                            <p>aquí, nombre herramienta</p>
-                            <p>aquí, tipo herramienta</p>
-                            <p>aquí, marca</p>
-                            <p>aquí, descripción</p>
-                            <p>aquí, cantidad</p>
-                        </div>
-                    ))}
-            </div>
+            <p>Bienvenido al panel de herramientas.</p>
+            {/* Aquí puedes agregar las tarjetas y botones */}
         </div>
     );
 }
 
-export default Dashboard; // Exporta el componente Dashboard
+export default Dashboard;
