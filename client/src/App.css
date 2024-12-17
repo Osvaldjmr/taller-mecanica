@@ -1,103 +1,107 @@
-/* Autores Borja, Ana Maria, Natali, Osvaldo 
-Fecha 17/12/2024
-Deescripcion Implementación del login para mecanico/encargado , este es el diseño
-Versión de la app 1.0.0 */
+/* Elimina los márgenes y define la fuente global */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  /* Color de fondo general */
+}
 
-
-/* Contenedor principal que centra el formulario y define el tamaño */
+/* Contenedor principal del login */
 .login-container {
   width: 350px;
-  /* Ancho del contenedor */
-  margin: 0 auto;
-  /* Centra horizontalmente */
+  margin: 10% auto;
+  /* Centra vertical y horizontalmente */
   padding: 20px;
-  /* Espaciado interno */
   text-align: center;
-  /* Centra el texto */
   border: 2px solid #ccc;
-  /* Borde con color gris claro */
   border-radius: 10px;
-  /* Bordes redondeados */
-  font-family: Arial, sans-serif;
-  /* Fuente del texto */
+  background: #fff;
 }
 
-/* Encabezado principal (Stock de herramientas) */
-.login-container h1 {
-  font-size: 24px;
-  /* Tamaño del texto */
-  margin-bottom: 10px;
-  /* Espacio inferior */
-}
-
-/* Subtítulo (Login) */
-.login-container h2 {
-  font-size: 18px;
-  /* Tamaño del texto */
-  margin-bottom: 20px;
-  /* Espacio inferior */
-  color: #555;
-  /* Color de texto gris */
-}
-
-/* Estilos para cada grupo del formulario (Email y Password) */
 .form-group {
+  margin-bottom: 15px;
   text-align: left;
-  /* Alinea el texto a la izquierda */
-  margin-bottom: 20px;
-  /* Espacio inferior entre grupos */
-  position: relative;
-  /* Posicionamiento para posibles ajustes */
 }
 
-/* Etiquetas (Email y Password) */
-.form-group label {
+label {
   display: block;
-  /* Muestra las etiquetas en una línea separada */
   margin-bottom: 5px;
-  /* Espacio entre la etiqueta y el input */
   color: #555;
-  /* Color gris */
 }
 
-/* Inputs del formulario (Email y Password) */
-.form-group input {
+input {
   width: 100%;
-  /* Ancho completo del contenedor */
+  padding: 5px;
   border: none;
-  /* Sin bordes */
   border-bottom: 2px solid #000;
-  /* Línea inferior negra */
+  /* Solo una línea inferior */
   outline: none;
-  /* Elimina el contorno al seleccionar */
-  font-size: 16px;
-  /* Tamaño de la letra */
-  padding: 5px;
-  /* Espaciado interno */
-  box-sizing: border-box;
-  /* Incluye padding y border en el ancho total */
-  background-color: transparent;
-  /* Fondo transparente */
 }
 
-/* Estilos para el botón LOGIN */
 button {
-  width: 100px;
-  /* Ancho fijo */
-  padding: 5px;
-  /* Espaciado interno */
-  font-size: 16px;
-  /* Tamaño de la letra */
-  background-color: #f8f8f8;
-  /* Color de fondo claro */
-  border: 1px solid #000;
-  /* Borde negro */
+  padding: 8px 15px;
+  margin-top: 10px;
   cursor: pointer;
-  /* Cambia el cursor a una mano al pasar por encima */
 }
 
-/* Efecto al pasar el mouse sobre el botón */
-button:hover {
-  background-color: #ddd;
-  /* Fondo gris claro */
+
+/* Contenedor principal del dashboard */
+.dashboard-container {
+  padding: 20px;
+  text-align: center;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.logo {
+  width: 50px;
+}
+
+/* Botones de navegación */
+.navigation-buttons button {
+  margin: 5px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+/* Barra de búsqueda */
+.search-bar {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.search-bar input {
+  padding: 5px;
+  width: 200px;
+}
+
+/* Tarjetas de herramientas */
+.tools-grid {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.tool-card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  width: 200px;
+  text-align: center;
+  margin: 10px;
+}
+
+.tool-img {
+  border: 2px solid #000;
+  border-radius: 10px;
+  height: 80px;
+  margin-bottom: 10px;
 }

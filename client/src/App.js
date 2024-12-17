@@ -1,64 +1,22 @@
-//Autores Borja, Ana Maria, Natali, Osvaldo 
-// Fecha 17/12/2024
-//Deescripcion Implementación del login para mecanico/encargado
-// Versión de la app 1.0.0
-
-//Autores Borja, Ana Maria, Natali, Osvaldo 
-// Fecha 17/12/2024
-//Deescripcion Implementación del login para mecanico/encargado
-// Versión de la app 1.0.0
-
-import React from "react";
-import "./App.css"; // Importamos el archivo de estilos CSS
+import React, { useState } from "react"; // Importa React y el hook useState
+import Login from "./components/Login"; // Importa el componente Login
+import Dashboard from "./components/Dashboard"; // Importa el componente Dashboard
+import "./App.css"; // Importa los estilos globales
 
 // Componente principal App
 function App() {
+  // Estado para controlar si el usuario está logueado o no
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
-    // Contenedor principal que envuelve todo el formulario
-    <div className="login-container">
-      {/* Encabezado principal */}
-      <h1>Stock de herramientas</h1>
-
-      {/* Subtítulo */}
-      <h2>Login</h2>
-
-      {/* Formulario */}
-      <form>
-        {/* Grupo para el campo Email */}
-        <div className="form-group">
-          {/* Etiqueta para el campo Email */}
-          <label>Email</label>
-          {/* Input para ingresar el Email */}
-
-          <input type="email" placeholder=" " />
-
-
-          <input type="email" placeholder="Enter your email" />
-
-          <input type="email" placeholder=" " />
-
-
-        </div>
-
-        {/* Grupo para el campo Password */}
-        <div className="form-group">
-          {/* Etiqueta para el campo Password */}
-          <label>Password</label>
-          {/* Input para ingresar la Password */}
-
-          <input type="password" placeholder=" " />
-
-
-          <input type="password" placeholder="Enter your password" />
-
-          <input type="password" placeholder=" " />
-
-
-        </div>
-
-        {/* Botón de envío */}
-        <button type="submit">LOGIN</button>
-      </form>
+    <div>
+      {/* Renderiza el componente Login si el usuario NO está logueado */}
+      {!isLoggedIn ? (
+        <Login onLogin={() => setIsLoggedIn(true)} />
+      ) : (
+        // Renderiza el componente Dashboard si el usuario está logueado
+        <Dashboard />
+      )}
     </div>
   );
 }
