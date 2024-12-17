@@ -1,0 +1,39 @@
+/herramientas
+
+    -> devuelve un JSON de todas las herramientas en la base de datos con la estructura:
+          {
+    "_id": "676080901e61a3854274d79a",
+    "nombre": "lampara portatil",
+    "tipo": "iluminacion",
+    "marca": "FIXAMI",
+    "cantidad": "12",
+    "descripcion": "Proporcionan iluminación en áreas de trabajo con poca luz.",
+    "foto": "https://media.istockphoto.com/id/172858598/es/foto/caja-de-metal-para-montaje-de-luz-de-trabajo-funcional.jpg?s=1024x1024&w=is&k=20&c=j4Z1hcY8ZRiyjNtHwvClh4mlC3kWcoZObPmvnIWxAXo="
+        }
+
+
+/incidencias
+    -> devuelve un JSON de todas las incidencias en la base de datos con la estructura:
+        {
+    "_id": "67607fd21e61a3854274d794",
+    "personal": "Juan",
+    "fecha": "17-12-2024",
+    "herramienta": "destornillador",
+    "descripcion": "Pérdida en obra del día 15-12-2024",
+    "estado": "En espera"
+        }
+
+/peticiones
+    -> devuelve un JSON de todas las peticiones en la base de datos con la estructura:
+        {
+    "_id": "67607fd21e61a3854274d794",
+    "personal": "Jose",
+    "fecha": "12-12-2024",
+    "herramienta": "destornillador",
+    "estado": "En espera"
+        }
+
+/mecanico
+
+/encargado
+

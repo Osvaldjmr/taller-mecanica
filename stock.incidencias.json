@@ -1,0 +1,10 @@
+[{
+  "_id": {
+    "$oid": "67607fd21e61a3854274d794"
+  },
+  "personal": "Juan",
+  "fecha": "17-12-2024",
+  "herramienta": "destornillador",
+  "descripcion": "Pérdida en obra del día 15-12-2024",
+  "estado": "En espera"
+}]

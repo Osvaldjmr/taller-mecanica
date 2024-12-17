@@ -11,17 +11,6 @@
 },
 {
   "_id": {
-    "$oid": "676080691e61a3854274d798"
-  },
-  "nombre": "carro_herramientas",
-  "tipo": "",
-  "marca": "transTools",
-  "cantidad": "10",
-  "descripcion": "Almacenan y organizan herramientas para facilitar el trabajo.",
-  "foto": ""
-},
-{
-  "_id": {
     "$oid": "676080901e61a3854274d79a"
   },
   "nombre": "lampara portatil",
@@ -46,7 +35,7 @@
   "_id": {
     "$oid": "676081011e61a3854274d79e"
   },
-  "nombre": "Calibrador",
+  "nombre": "calibrador",
   "tipo": "medicion",
   "marca": "FIXAMI",
   "cantidad": "3",
@@ -79,7 +68,7 @@
   "_id": {
     "$oid": "676081841e61a3854274d7a4"
   },
-  "nombre": "Destornillador",
+  "nombre": "destornillador",
   "tipo": "fijacion",
   "marca": "megaMech",
   "cantidad": "6",
@@ -96,4 +85,14 @@
   "cantidad": "7",
   "descripcion": " Aprieta tuercas y tornillos con un par de apriete específico.",
   "foto": "https://media.istockphoto.com/id/1278303048/es/foto/alicates-de-color-amarillo-y-negro-sobre-fondo-blanco-alicates-aislados-en-blanco.jpg?s=1024x1024&w=is&k=20&c=g3cQuTfwt4L-UFPXjSMihiCf5y-IseWaLBfRJav1F1U="
+},
+{
+  "_id": {
+    "$oid": "6761a20a8b84f99cf806c38a"
+  },
+  "nombre": "nueva herramienta",
+  "tipo": "nuevo tipo",
+  "marca": "nueva marca",
+  "cantidad": "99",
+  "descripcion": "nueva descripción"
 }]
