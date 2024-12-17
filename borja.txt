@@ -1,10 +1,51 @@
 ** Estructura para la base de datos en MongoDB **
 
+  * Herramientas *
+
 {
-  "nombre": "nombreTest",
-  "tipo": "tipoTest",
-  "marca": "marcaTest",
-  "cantidad": "cantidadtest",
-  "descripcion": "descripcionTest",
-  "foto": "fotoTest"
+  "_id": {
+    "$oid": "676081331e61a3854274d7a0"
+  },
+  "nombre": "metro",
+  "tipo": "medicion",
+  "marca": "megaMech",
+  "cantidad": "14",
+  "descripcion": "Para medir hasta 4 metros",
+  "foto": "https://media.istockphoto.com/id/174798452/es/foto/cinta-m%C3%A9trica.jpg?s=1024x1024&w=is&k=20&c=8upsaSePZZrjXvdCwC9VXM0OERv_zmw8C_yVZJwLQCE="
 }
+
+  * Incidencias *
+{
+  "_id": {
+    "$oid": "67607fd21e61a3854274d794"
+  },
+  "personal": "Juan",
+  "fecha": "17-12-2024",
+  "herramienta": "destornillador",
+  "descripcion": "Pérdida en obra del día 15-12-2024",
+  "estado": "En espera"
+}
+  * Peticiones *
+{
+  "_id": {
+    "$oid": "67607fd21e61a3854274d794"
+  },
+  "personal": "Jose",
+  "fecha": "12-12-2024",
+  "herramienta": "destornillador",
+  "estado": "En espera"
+}
+
+---------------------- 17/DIC
+
+- Actualizada BD con fotos y tipo de cada herramienta.
+
+- Actualizada BD con colecciones "peticiones" e "incidencias"
+
+- Actualizado index.js con endpoints para mostrar datos desde la DB, los endpoints están descritos en endpoints.txt
+
+- Actualizado index.js y mongoOperations.js cambiando los datos de acceso a la DB.
+
+- Actualizado stock.herramientas.json, agregado stock.incidencias y stock.peticiones como backup.
+
+- Quedo trabajando en los endpoints para las búsquedas
