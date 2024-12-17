@@ -1,35 +1,13 @@
 [{
   "_id": {
-    "$oid": "67607f2b1e61a3854274d792"
-  },
-  "nombre": "jose",
-  "tipo": "amarillo",
-  "marca": "grefusa",
-  "cantidad": "3",
-  "descripcion": "hola qué tal",
-  "foto": "fotoTest"
-},
-{
-  "_id": {
     "$oid": "67607fd21e61a3854274d794"
   },
-  "nombre": "compresor_aire",
-  "tipo": "",
+  "nombre": "gato hidraulico",
+  "tipo": "elevacion",
   "marca": "FIXAMI",
   "cantidad": "3",
-  "descripcion": "Imprescindible para trabajar con máquinas neumáticas e inflar neumáticos.",
-  "foto": ""
-},
-{
-  "_id": {
-    "$oid": "676080221e61a3854274d796"
-  },
-  "nombre": "gato_hidraulico",
-  "tipo": "",
-  "marca": "FIXAMI",
-  "cantidad": "3",
-  "descripcion": "Almacenan y organizan herramientas para facilitar el trabajo.",
-  "foto": ""
+  "descripcion": "Utilizado para levantar vehículos para cambios de ruedas y trabajos de frenos.",
+  "foto": "https://media.istockphoto.com/id/1364709778/es/foto/mantenimiento-de-veh%C3%ADculos-modernos-y-el-elevador-de-gato-de-piso.jpg?s=1024x1024&w=is&k=20&c=9o93VJ0WUbwj36kzLl6HnpFPoiXBXew4LteyGnNJFr8="
 },
 {
   "_id": {
@@ -46,45 +24,45 @@
   "_id": {
     "$oid": "676080901e61a3854274d79a"
   },
-  "nombre": "lampara",
-  "tipo": "",
+  "nombre": "lampara portatil",
+  "tipo": "iluminacion",
   "marca": "FIXAMI",
   "cantidad": "12",
   "descripcion": "Proporcionan iluminación en áreas de trabajo con poca luz.",
-  "foto": ""
+  "foto": "https://media.istockphoto.com/id/172858598/es/foto/caja-de-metal-para-montaje-de-luz-de-trabajo-funcional.jpg?s=1024x1024&w=is&k=20&c=j4Z1hcY8ZRiyjNtHwvClh4mlC3kWcoZObPmvnIWxAXo="
 },
 {
   "_id": {
     "$oid": "676080cc1e61a3854274d79c"
   },
-  "nombre": "llave_impacto",
-  "tipo": "",
+  "nombre": "lampara de suelo",
+  "tipo": "iluminación",
   "marca": "megaMech",
   "cantidad": "2",
-  "descripcion": "Ideales para aflojar y apretar tuercas rápidamente.",
-  "foto": ""
+  "descripcion": "Proporcionan iluminación en áreas de trabajo con poca luz.",
+  "foto": "https://media.istockphoto.com/id/488785421/es/foto/luz-de-trabajo-led.jpg?s=1024x1024&w=is&k=20&c=sSDv8CHzNQOoHC6eScZYB66_HqvOvkkVQP3EuRuzxg4="
 },
 {
   "_id": {
     "$oid": "676081011e61a3854274d79e"
   },
-  "nombre": "manguera",
-  "tipo": "",
+  "nombre": "Calibrador",
+  "tipo": "medicion",
   "marca": "FIXAMI",
   "cantidad": "3",
-  "descripcion": "Para fluídos o aire comprimido",
-  "foto": ""
+  "descripcion": "Mide magnitudes eléctricas y realiza comprobaciones en baterías y sistemas.\n",
+  "foto": "https://media.istockphoto.com/id/867859378/es/vector/calibre-pie-de-rey.jpg?s=1024x1024&w=is&k=20&c=YgrCbnT1lbMfU-ICR3K8-pW-hSQYqJ-SPwqD_w4eZ4c="
 },
 {
   "_id": {
     "$oid": "676081331e61a3854274d7a0"
   },
-  "nombre": "fijador",
-  "tipo": "",
+  "nombre": "metro",
+  "tipo": "medicion",
   "marca": "megaMech",
-  "cantidad": "4",
-  "descripcion": "Para colocar piezas y fijar roscas.",
-  "foto": ""
+  "cantidad": "14",
+  "descripcion": "Para medir hasta 4 metros",
+  "foto": "https://media.istockphoto.com/id/174798452/es/foto/cinta-m%C3%A9trica.jpg?s=1024x1024&w=is&k=20&c=8upsaSePZZrjXvdCwC9VXM0OERv_zmw8C_yVZJwLQCE="
 },
 {
   "_id": {
@@ -101,21 +79,21 @@
   "_id": {
     "$oid": "676081841e61a3854274d7a4"
   },
-  "nombre": "mesa_trabajo",
-  "tipo": "",
+  "nombre": "Destornillador",
+  "tipo": "fijacion",
   "marca": "megaMech",
   "cantidad": "6",
-  "descripcion": "Proporcionan un espacio de trabajo para reparaciones.",
-  "foto": ""
+  "descripcion": "Herramienta básica para apretar y aflojar tornillos",
+  "foto": "https://media.istockphoto.com/id/467224344/es/foto/destornillador.jpg?s=1024x1024&w=is&k=20&c=ekadoCu3dEIaC77tS2fUqyignDwNRgY-bWsTxg1HXws="
 },
 {
   "_id": {
     "$oid": "676081b01e61a3854274d7a6"
   },
-  "nombre": "llave_dinometrica",
-  "tipo": "",
+  "nombre": "Alicates",
+  "tipo": "fijacion",
   "marca": "FIXAMI",
   "cantidad": "7",
   "descripcion": " Aprieta tuercas y tornillos con un par de apriete específico.",
-  "foto": ""
+  "foto": "https://media.istockphoto.com/id/1278303048/es/foto/alicates-de-color-amarillo-y-negro-sobre-fondo-blanco-alicates-aislados-en-blanco.jpg?s=1024x1024&w=is&k=20&c=g3cQuTfwt4L-UFPXjSMihiCf5y-IseWaLBfRJav1F1U="
 }]

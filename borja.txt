@@ -8,3 +8,8 @@
   "descripcion": "descripcionTest",
   "foto": "fotoTest"
 }
+
+---------------------- 17/DIC
+
+actualizada BD con fotos y tipo de cada herramienta.
+
