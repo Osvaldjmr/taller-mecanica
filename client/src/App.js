@@ -1,25 +1,66 @@
+//Autores Borja, Ana Maria, Natali, Osvaldo 
+// Fecha 17/12/2024
+//Deescripcion Implementación del login para mecanico/encargado
+// Versión de la app 1.0.0
 
+//Autores Borja, Ana Maria, Natali, Osvaldo 
+// Fecha 17/12/2024
+//Deescripcion Implementación del login para mecanico/encargado
+// Versión de la app 1.0.0
 
+import React from "react";
+import "./App.css"; // Importamos el archivo de estilos CSS
+
+// Componente principal App
 function App() {
   return (
-    <div class="container">
-      <h1>Node JS Express Form </h1>
-      <form action="http://127.0.0.1:3001/" method="POST">
-        <div class="form-group">
-          <label for="firstName">First Name</label>
-          <input type="text" class="form-control" id="firstName" aria-describedby="emailHelp" placeholder="Enter first name" name="first_name"></input>
+    // Contenedor principal que envuelve todo el formulario
+    <div className="login-container">
+      {/* Encabezado principal */}
+      <h1>Stock de herramientas</h1>
+
+      {/* Subtítulo */}
+      <h2>Login</h2>
+
+      {/* Formulario */}
+      <form>
+        {/* Grupo para el campo Email */}
+        <div className="form-group">
+          {/* Etiqueta para el campo Email */}
+          <label>Email</label>
+          {/* Input para ingresar el Email */}
+
+          <input type="email" placeholder=" " />
+
+
+          <input type="email" placeholder="Enter your email" />
+
+          <input type="email" placeholder=" " />
+
+
         </div>
-        <div class="form-group">
-          <label for="lastName">Last Name</label>
-          <input type="text" class="form-control" id="lastName" aria-describedby="emailHelp" placeholder="Enter last name" name="last_name"></input>
+
+        {/* Grupo para el campo Password */}
+        <div className="form-group">
+          {/* Etiqueta para el campo Password */}
+          <label>Password</label>
+          {/* Input para ingresar la Password */}
+
+          <input type="password" placeholder=" " />
+
+
+          <input type="password" placeholder="Enter your password" />
+
+          <input type="password" placeholder=" " />
+
+
         </div>
-        <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" placeholder="Enter email"></input>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+
+        {/* Botón de envío */}
+        <button type="submit">LOGIN</button>
       </form>
     </div>
   );
 }
-export default App;
+
+export default App; // Exporta el componente para usarlo en otros archivos
