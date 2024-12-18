@@ -1,9 +1,4 @@
-//Autores Borja, Ana Maria, Natalia, Osvaldo 
-// Fecha 18/12/2024
-// Agregados endpoints líneas 29~57
-// Versión de la app 1.0.0
-
-
+const { ObjectId } = require('mongodb');
 const {
   crearBaseDeDatos,
   crearColeccion,
@@ -26,33 +21,46 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
-// B: Endpoint para mostrar todas las herramientas de la DB
+// B Esto permite mostrar todas las herramientas de la DB
 app.get('/herramientas', async (req, res) => {
   let todos = await verTodos("herramientas");
   res.json(todos);
 });
 
-// B: Endpoint para mostrar todas las incidencias de la DB
-
+// B Esto permite mostrar todas las incidencias de la DB
 app.get('/incidencias', async (req, res) => {
   let todos = await verTodos("incidencias");
   res.json(todos);
 });
 
-// B: Endpoint para mostrar todas las peticiones de la DB
-
+// B Esto permite mostrar todas las peticiones de la DB
 app.get('/peticiones', async (req, res) => {
   let todos = await verTodos("peticiones");
   res.json(todos);
 });
 
-// B: WIP
-app.get('/herramientas/buscar', (req, res) => {
-  res.sendFile(__dirname + '/search.html');
-});
-// B: WIP
-app.get('/herramientas?nombre=:nombre', async (req, res) => {
+// B: Esto permite buscar la herramienta que coincida con el nombre que pongo en la url
+app.get('/herramientas/:nombre', async (req, res) => {
+  console.log(req.query);
   let todos = await querySimple("herramientas", {nombre: req.params.nombre});
+  res.json(todos);
+});
+
+// B: Esto permite buscar la incidencia que coincida con el ID que pongo en la url
+app.get('/incidencias/:id', async (req, res) => {
+  const id = req.params.id;
+  const objectId = new ObjectId(id);
+
+  const todos = await querySimple("incidencias", {_id: objectId});
+  res.json(todos);
+});
+
+// B: Esto permite buscar la petición que coincida con el ID que pongo en la url
+app.get('/peticiones/:id', async (req, res) => {
+  const id = req.params.id;
+  const objectId = new ObjectId(id);
+
+  const todos = await querySimple("peticiones", {_id: objectId});
   res.json(todos);
 });
 
@@ -65,4 +73,4 @@ app.post('/', async (req, res) => {
   res.send("Insertados en la tabla Usuarios los siguientes datos: " +JSON.stringify(req.body));
 });
 
-app.listen(3000); //B: Editado para que escuche al puerto 3000
+app.listen(3000);

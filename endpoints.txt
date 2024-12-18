@@ -11,6 +11,9 @@
     "foto": "https://media.istockphoto.com/id/172858598/es/foto/caja-de-metal-para-montaje-de-luz-de-trabajo-funcional.jpg?s=1024x1024&w=is&k=20&c=j4Z1hcY8ZRiyjNtHwvClh4mlC3kWcoZObPmvnIWxAXo="
         }
 
+/herramientas/"nombre_de_la_herramienta"
+    -> devuelve la herramienta que coincida con la introducida entre las comillas
+
 
 /incidencias
     -> devuelve un JSON de todas las incidencias en la base de datos con la estructura:
@@ -23,6 +26,9 @@
     "estado": "En espera"
         }
 
+/incidencias/"id_de_la_incidencia"
+    -> devuelve la incidencia que coincida con el id introducido entre las comillas.
+
 /peticiones
     -> devuelve un JSON de todas las peticiones en la base de datos con la estructura:
         {
@@ -32,6 +38,8 @@
     "herramienta": "destornillador",
     "estado": "En espera"
         }
+/peticiones/"id_de_la_peticiones"
+    -> devuelve la petición que coincida con el id introducido entre las comillas.
 
 /mecanico
 

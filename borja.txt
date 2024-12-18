@@ -49,3 +49,10 @@
 - Actualizado stock.herramientas.json, agregado stock.incidencias y stock.peticiones como backup.
 
 - Quedo trabajando en los endpoints para las búsquedas
+
+
+---------------------- 18/DIC
+
+- Implementados endpoints /herramientas, /incidencias, /peticiones para mostrar todo lo que haya en la DB respectivamente.
+
+- Implementados endpoints /herramientas/:nombre /incidencias/:id, /peticiones/:id, para búsquedas concretas.

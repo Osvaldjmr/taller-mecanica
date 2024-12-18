@@ -1,6 +1,6 @@
 const { MongoClient } = require('mongodb');
 
-const mydb = "stock";   //B: Editado con el nombre de nuestra DB
+const mydb = "stock";
 
 const url = "mongodb://127.0.0.1:27017/";
 
@@ -27,8 +27,6 @@ async function crearColeccion(coleccion) {
     await client.close();
 }
 
-
-
 //Insertar dentro de una coleccion de una BD
 async function insertarDocumento(coleccion, documento) {
     const client = await connectToMongo();
@@ -38,7 +36,6 @@ async function insertarDocumento(coleccion, documento) {
     console.log(`Documento insertado con ID: ${resultado.insertedId}`);
     await client.close();
 }
-
 
 // Obtener datos del primer elemento dentro de una colección
 async function obtenerPrimerElemento(coleccion) {
