@@ -1,21 +1,53 @@
-// App.js
-import React, { useState } from "react";
-import Login from "./components/Login"; // Importa el componente de login
-import Dashboard from "./components/Dashboard"; // Importa el componente Dashboard
-import "./App.css"; // Importa estilos globales
+import React, { useState, useEffect } from "react";
+import { auth } from "./firebase";
+import Login from "./components/Login";
+import DashboardEncargado from "./components/DashboardEncargado";
+import DashboardMecanico from "./components/DashboardMecanico";
 
-// Componente principal
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Estado para manejar la sesión
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Estado de autenticación
+  const [loading, setLoading] = useState(true); // Estado de carga
+  const [role, setRole] = useState(""); // Estado para el rol del usuario
+
+  // Simula la obtención del rol desde Firebase
+  const fetchUserRole = (user) => {
+    // Aquí colocarías tu lógica real para obtener el rol desde Firestore o backend
+    // Simulamos un rol basado en el email del usuario (temporal)
+    if (user.email === "encargado@fake.com") {
+      setRole("encargado");
+    } else if (user.email === "mecanico@fake.com") {
+      setRole("mecanico");
+    } else {
+      setRole(""); // Rol no reconocido
+    }
+  };
+
+  // Verifica si el usuario está autenticado
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        setIsLoggedIn(true); // Usuario autenticado
+        fetchUserRole(user); // Obtiene el rol del usuario
+      } else {
+        setIsLoggedIn(false); // Usuario no autenticado
+        setRole(""); // Limpia el rol
+      }
+      setLoading(false); // Finaliza la carga
+    });
+  }, []);
+
+  if (loading) return <p>Cargando...</p>; // Muestra la pantalla de carga
 
   return (
     <div>
-      {/* Si no está logueado, muestra el formulario de login */}
       {!isLoggedIn ? (
-        <Login onLogin={() => setIsLoggedIn(true)} /> // Pasa la función onLogin como prop
+        <Login onLogin={() => setIsLoggedIn(true)} />
+      ) : role === "encargado" ? (
+        <DashboardEncargado /> // Muestra el Dashboard para Encargados
+      ) : role === "mecanico" ? (
+        <DashboardMecanico /> // Muestra el Dashboard para Mecánicos
       ) : (
-        // Si está logueado, muestra el Dashboard
-        <Dashboard />
+        <p>No tienes permisos para acceder.</p> // Mensaje para rol no reconocido
       )}
     </div>
   );

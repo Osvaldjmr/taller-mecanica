@@ -1,55 +1,58 @@
 // Login.js
+// Importaciones necesarias
 import React, { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth"; // Importa la función de autenticación
-import { auth } from "../firebase"; // Importa la configuración de Firebase
-import "../styles/Login.css"; // Importa los estilos específicos
+import { signInWithEmailAndPassword } from "firebase/auth"; // Función para autenticarse con Firebase
+import { auth } from "../firebase"; // Configuración de Firebase
+import "../styles/LoginUsers.css";
 
 function Login({ onLogin }) {
-    const [username, setUsername] = useState(""); // Estado para el nombre de usuario
-    const [password, setPassword] = useState(""); // Estado para la contraseña
-    const [error, setError] = useState(""); // Estado para mostrar errores
+    // Estado para almacenar el nombre de usuario ingresado
+    const [username, setUsername] = useState("");
+    // Estado para almacenar la contraseña ingresada
+    const [password, setPassword] = useState("");
+    // Estado para manejar mensajes de error
+    const [error, setError] = useState("");
 
-    // Maneja el envío del formulario
+    // Función para manejar el envío del formulario
     const handleSubmit = (e) => {
-        e.preventDefault(); // Previene el comportamiento por defecto del formulario
-        setError(""); // Reinicia el estado de error
+        e.preventDefault(); // Previene que la página se recargue
+        setError(""); // Limpia cualquier error previo
 
         const fakeEmail = `${username}@fake.com`; // Convierte el nombre de usuario en un email falso
 
-        // Inicia sesión con Firebase Authentication
+        // Llama a Firebase Authentication para iniciar sesión
         signInWithEmailAndPassword(auth, fakeEmail, password)
-            .then(() => onLogin()) // Si la autenticación es exitosa, cambia el estado de App
+            .then(() => onLogin()) // Llama a onLogin si la autenticación es exitosa
             .catch(() => setError("Credenciales incorrectas. Inténtalo de nuevo."));
     };
 
     return (
         <div className="login-container">
-            <h1>Stock de herramientas</h1>
-            <h2>Login</h2>
+            <h1>Login</h1>
             <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label>Nombre de usuario</label>
-                    <input
-                        type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Contraseña</label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                {error && <p className="error">{error}</p>}
-                <button type="submit">LOGIN</button>
+                {/* Campo de nombre de usuario */}
+                <label>Nombre de usuario</label>
+                <input
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)} // Actualiza el estado al escribir
+                    required
+                />
+                {/* Campo de contraseña */}
+                <label>Contraseña</label>
+                <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)} // Actualiza el estado al escribir
+                    required
+                />
+                {/* Muestra errores si existen */}
+                {error && <p style={{ color: "red" }}>{error}</p>}
+                {/* Botón de envío */}
+                <button type="submit">Login</button>
             </form>
         </div>
     );
 }
 
-export default Login;
+export default Login; // Exporta el componente de Login
