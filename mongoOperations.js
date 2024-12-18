@@ -1,6 +1,6 @@
 const { MongoClient } = require('mongodb');
 
-const mydb = "stock";
+const mydb = "stock";   //B: Editado con el nombre de nuestra DB
 
 const url = "mongodb://127.0.0.1:27017/";
 
