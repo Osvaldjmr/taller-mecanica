@@ -1,66 +1,56 @@
-//Autores Borja, Ana Maria, Natali, Osvaldo 
-// Fecha 17/12/2024
-//Deescripcion Implementación del login para mecanico/encargado
-// Versión de la app 1.0.0
+import React, { useState, useEffect } from "react";
+import { auth } from "./firebase";
+import Login from "./components/Login";
+import DashboardEncargado from "./components/DashboardEncargado";
+import DashboardMecanico from "./components/DashboardMecanico";
 
-//Autores Borja, Ana Maria, Natali, Osvaldo 
-// Fecha 17/12/2024
-//Deescripcion Implementación del login para mecanico/encargado
-// Versión de la app 1.0.0
-
-import React from "react";
-import "./App.css"; // Importamos el archivo de estilos CSS
-
-// Componente principal App
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Estado de autenticación
+  const [loading, setLoading] = useState(true); // Estado de carga
+  const [role, setRole] = useState(""); // Estado para el rol del usuario
+
+  // Simula la obtención del rol desde Firebase
+  const fetchUserRole = (user) => {
+    // Aquí colocarías tu lógica real para obtener el rol desde Firestore o backend
+    // Simulamos un rol basado en el email del usuario (temporal)
+    if (user.email === "encargado@fake.com") {
+      setRole("encargado");
+    } else if (user.email === "mecanico@fake.com") {
+      setRole("mecanico");
+    } else {
+      setRole(""); // Rol no reconocido
+    }
+  };
+
+  // Verifica si el usuario está autenticado
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        setIsLoggedIn(true); // Usuario autenticado
+        fetchUserRole(user); // Obtiene el rol del usuario
+      } else {
+        setIsLoggedIn(false); // Usuario no autenticado
+        setRole(""); // Limpia el rol
+      }
+      setLoading(false); // Finaliza la carga
+    });
+  }, []);
+
+  if (loading) return <p>Cargando...</p>; // Muestra la pantalla de carga
+
   return (
-    // Contenedor principal que envuelve todo el formulario
-    <div className="login-container">
-      {/* Encabezado principal */}
-      <h1>Stock de herramientas</h1>
-
-      {/* Subtítulo */}
-      <h2>Login</h2>
-
-      {/* Formulario */}
-      <form>
-        {/* Grupo para el campo Email */}
-        <div className="form-group">
-          {/* Etiqueta para el campo Email */}
-          <label>Email</label>
-          {/* Input para ingresar el Email */}
-
-          <input type="email" placeholder=" " />
-
-
-          <input type="email" placeholder="Enter your email" />
-
-          <input type="email" placeholder=" " />
-
-
-        </div>
-
-        {/* Grupo para el campo Password */}
-        <div className="form-group">
-          {/* Etiqueta para el campo Password */}
-          <label>Password</label>
-          {/* Input para ingresar la Password */}
-
-          <input type="password" placeholder=" " />
-
-
-          <input type="password" placeholder="Enter your password" />
-
-          <input type="password" placeholder=" " />
-
-
-        </div>
-
-        {/* Botón de envío */}
-        <button type="submit">LOGIN</button>
-      </form>
+    <div>
+      {!isLoggedIn ? (
+        <Login onLogin={() => setIsLoggedIn(true)} />
+      ) : role === "encargado" ? (
+        <DashboardEncargado /> // Muestra el Dashboard para Encargados
+      ) : role === "mecanico" ? (
+        <DashboardMecanico /> // Muestra el Dashboard para Mecánicos
+      ) : (
+        <p>No tienes permisos para acceder.</p> // Mensaje para rol no reconocido
+      )}
     </div>
   );
 }
 
-export default App; // Exporta el componente para usarlo en otros archivos
+export default App;
