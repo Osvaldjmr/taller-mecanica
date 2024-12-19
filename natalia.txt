@@ -1,0 +1,5 @@
+Natalia
+día 19-12
+-Hay que añadir el logo a todos los componentes que lo lleven.
+-He creado el CSS de Login, DashboarEncargados, casi he terminado DashboarMecánicos
+-Faltaría el CSS de los formularios de incidencias y pedidos, así como el CSS que mis compañeros suban en este último push.
