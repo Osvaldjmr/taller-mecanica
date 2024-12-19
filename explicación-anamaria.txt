@@ -1,0 +1,4 @@
+*crreado el componente AreDeMecanico
+*Cambiado AreaDeMecanico a DashboardMecanico
+*19.12.2024 Creado FetchPetition, dentro creado un formulario para las nuevas peticiones.
+// Componente para el formulario de petición de herramientas

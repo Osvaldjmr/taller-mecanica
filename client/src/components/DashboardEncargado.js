@@ -1,29 +1,35 @@
 // Importamos las dependencias necesarias
 import React, { useState, useEffect } from "react"; // React, useState y useEffect para manejar estados y efectos
-import { signOut } from "firebase/auth"; // Funci贸n para cerrar sesi贸n de Firebase
-import { auth } from "../firebase"; // Importo la configuraci贸n de Firebase
+import { signOut } from "firebase/auth"; // Función para cerrar sesión de Firebase
+import { auth } from "../firebase"; // Importo la configuración de Firebase
 import "../styles/DashboardEncargado.css"; // Importo el archivo de estilos CSS para este componente
+import FetchIncidents from './FetchIncidents';
+
 
 // Declaro el componente principal DashboardEncargado
 function DashboardEncargado() {
-  // Estado local para manejar el t茅rmino de b煤squeda ingresado por el usuario
+  // Estado local para manejar el término de búsqueda ingresado por el usuario
   const [searchTerm, setSearchTerm] = useState("");
-  // Estado local para manejar las herramientas encontradas en la b煤squeda
+  // Estado local para manejar las herramientas encontradas en la búsqueda
   const [tools, setTools] = useState([]);
-  // Estado local para manejar posibles errores durante la b煤squeda
+  // este será un estado para almacenar el término de búsqueda ingresado por el usuario
+  const [originalTools, setOriginalTools] = useState([])
+  // Estado local para manejar posibles errores durante la búsqueda
   const [error, setError] = useState(null);
 
-  // Funci贸n para cerrar sesi贸n usando Firebase Authentication
+  const [showIncidents, setShowIncidents] = useState(false);
+
+  // Función para cerrar sesión usando Firebase Authentication
   const handleLogout = () => {
-    // Llamada a la funci贸n signOut de Firebase
+    // Llamada a la función signOut de Firebase
     signOut(auth)
       .then(() => {
-        // Mensaje de 茅xito en la consola
-        console.log("Sesi贸n cerrada exitosamente");
+        // Mensaje de éxito en la consola
+        console.log("Sesión cerrada exitosamente");
       })
       .catch((error) => {
         // Mensaje de error en la consola si algo falla
-        console.error("Error al cerrar sesi贸n:", error.message);
+        console.error("Error al cerrar sesión:", error.message);
       });
   };
 
@@ -31,63 +37,72 @@ function DashboardEncargado() {
   useEffect(() => {
     fetch("http://localhost:3001/herramientas") // Cambiado desde tools
       .then((response) => {
+        // verificamos si la respùesta es válida
         if (!response.ok) {
           throw new Error("Error en la respuesta del servidor");
         }
-        return response.json();
+        return response.json(); // parseamos la respuestas como JSON
       })
       .then((data) => {
+        // almacenamos los datos en el estado
         setTools(data);
+        setOriginalTools(data); // Guardamos una copia original
         setError(null);
       })
       .catch((err) => {
+        // si ocurre un error lo manejamos aquí
         console.error("Error al cargar herramientas:", err);
         setError("Hubo un error al cargar las herramientas");
       });
-  }, []); // Dependencia vac铆a
+  }, []); // Dependencia vacía: solo se ejecuta al montar el componente
 
 
-  // Funci贸n para realizar la b煤squeda de herramientas
+  // Función para realizar la búsqueda de herramientas
   const handleSearch = () => {
-    // Verificamos que el t茅rmino de b煤squeda no est茅 vac铆o
+    // Si el término de búsqueda está vacío, mostramos un error y restauramos la lista
     if (!searchTerm.trim()) {
-      setError("Por favor, ingresa un t茅rmino para buscar");
+      setError("Por favor, ingresa un término para buscar");
+      setTools(originalTools); // Restauramos las herramientas originales
       return;
     }
 
-    // Filtrar herramientas basadas en el t茅rmino de b煤squeda
+    // Filtrar herramientas basadas en el término de búsqueda
     const filteredTools = tools.filter((tool) =>
       tool.nombre.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
+    // Si encontramos herramientas, actualizamos el estado; si no, mostramos un mensaje de error
     if (filteredTools.length > 0) {
-      setTools(filteredTools);
-      setError(null);
+      setTools(filteredTools); // Actualizamos con las herramientas filtradas
+      setError(null); // No hay error
     } else {
-      setTools([]);
-      setError("No se encontraron herramientas que coincidan con tu b煤squeda");
+      setTools([]); // Vacíamos la lista de herramientas
+      setError("No se encontraron herramientas que coincidan con tu búsqueda");
     }
   };
 
   return (
     <div className="encargados-container"> {/* Contenedor principal */}
-      {/* Encabezado del 谩rea de encargados */}
+      {/* Encabezado del área de encargados */}
       <header className="header">
+         {/* Logo del área de encargados */}
         <img src="/logo.png" alt="Logo Mechanical" className="logo" /> {/* Logo */}
-        <h2 className="title">脕rea de Encargados</h2> {/* T铆tulo */}
+        <h2 className="title">Área de Encargados</h2> {/* Título */}
       </header>
 
       {/* Grupo de botones para realizar acciones */}
       <div className="button-group">
-        <button>Incidencias</button> {/* Bot贸n para incidencias */}
-        <button>Peticiones de material</button> {/* Bot贸n para peticiones */}
-        <button>Alta de material</button> {/* Bot贸n para alta */}
-        <button>Actualizar material</button> {/* Bot贸n para actualizar */}
-        <button>Eliminar material</button> {/* Bot贸n para eliminar */}
+      <button onClick={() => setShowIncidents(!showIncidents)}>Incidencias</button>
+      {showIncidents && <FetchIncidents />}
+        <button>Peticiones de material</button> {/* Botón para peticiones */}
+        <button>Alta de material</button> {/* Botón para alta */}
+        <button>Actualizar material</button> {/* Botón para actualizar */}
+        <button>Eliminar material</button> {/* Botón para eliminar */}
       </div>
 
-      {/* Barra de b煤squeda */}
+      {/* Barra de búsqueda */}
       <div className="search-bar">
+         {/* Campo de texto para ingresar el término de búsqueda */}
         <input
           type="text"
           placeholder="Buscar stock" // Placeholder para el campo de texto
@@ -95,8 +110,8 @@ function DashboardEncargado() {
           value={searchTerm} // Estado ligado al campo de texto
           onChange={(e) => setSearchTerm(e.target.value)} // Actualizamos el estado al escribir
         />
-        <button className="search-button" onClick={handleSearch}> {/* Bot贸n para iniciar la b煤squeda */}
-          馃攳
+        <button className="search-button" onClick={handleSearch}> {/* Botón para iniciar la búsqueda */}
+          🔍
         </button>
       </div>
 
@@ -113,13 +128,17 @@ function DashboardEncargado() {
           tools.map((tool) => (
             <div key={tool._id} className="tool-card"> {/* Tarjeta de herramienta */}
               <div className="tool-image"> {/* Imagen de la herramienta */}
-                <img src={tool.foto || "/default-image.jpg"} alt={tool.nombre} />
+                <img 
+                src={tool.foto || "/default-image.jpg"}
+                alt={tool.nombre} 
+                className="tool-img" // clase para la imagen
+                />
               </div>
               <div className="tool-details"> {/* Detalles de la herramienta */}
                 <p><strong>Nombre:</strong> {tool.nombre}</p>
                 <p><strong>Tipo:</strong> {tool.tipo}</p>
                 <p><strong>Marca:</strong> {tool.marca}</p>
-                <p><strong>Descripci贸n:</strong> {tool.descripcion}</p>
+                <p><strong>Descripción:</strong> {tool.descripcion}</p>
                 <p><strong>Cantidad:</strong> {tool.cantidad}</p>
               </div>
             </div>
@@ -127,15 +146,15 @@ function DashboardEncargado() {
         )}
       </div>
 
-      {/* Bot贸n para cerrar sesi贸n */}
+      {/* Botón para cerrar sesión */}
       <div className="logout-container">
         <button onClick={handleLogout} className="logout-button">
-          Cerrar Sesi贸n
+          Cerrar Sesión
         </button>
       </div>
     </div>
   );
 }
 
-// Exportamos el componente para usarlo en otras partes de la aplicaci贸n
+// Exportamos el componente para usarlo en otras partes de la aplicación
 export default DashboardEncargado;
