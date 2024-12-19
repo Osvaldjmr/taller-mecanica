@@ -1,123 +1,221 @@
-/* Contenedor principal */
+/* Contenedor principal para el área de encargados */
 .encargados-container {
     width: 90%;
+    /* Ocupa el 90% del ancho del viewport */
     margin: 0 auto;
+    /* Centra horizontalmente el contenido */
     font-family: Arial, sans-serif;
+    /* Estilo de fuente general */
     text-align: center;
+    /* Centra el texto por defecto */
 }
 
-/* Encabezado */
+/* Encabezado de la página */
 .header {
     display: flex;
+    /* Usamos flexbox para alinear elementos */
     justify-content: space-between;
+    /* Espaciamos los elementos extremos */
     align-items: center;
+    /* Centramos los elementos verticalmente */
     padding: 10px;
+    /* Espaciado interno */
     border-bottom: 2px solid #ccc;
+    /* Línea decorativa en la parte inferior */
 }
 
+/* Estilo para el logo */
 .logo {
     height: 50px;
+    /* Tamaño fijo para el logo */
 }
 
+/* Estilo para el título del encabezado */
 .title {
     font-size: 24px;
+    /* Tamaño grande para destacar */
     font-weight: bold;
+    /* Texto en negrita */
 }
 
-/* Botones superiores */
+/* Grupo de botones superiores */
 .button-group {
     display: flex;
+    /* Alineamos los botones en línea horizontal */
     justify-content: center;
+    /* Centramos los botones */
     margin: 20px 0;
+    /* Espaciado superior e inferior */
 }
 
+/* Estilo base para los botones */
 .button-group button {
     margin: 0 10px;
+    /* Espaciado horizontal entre botones */
     padding: 8px 15px;
+    /* Espaciado interno del botón */
     font-size: 14px;
+    /* Tamaño del texto */
     background-color: #f8f8f8;
+    /* Color de fondo claro */
     border: 1px solid #ccc;
+    /* Borde gris claro */
     border-radius: 5px;
+    /* Esquinas redondeadas */
     cursor: pointer;
+    /* Cambia el cursor al pasar sobre el botón */
 }
 
+/* Estilo del botón al pasar el mouse */
 .button-group button:hover {
     background-color: #007bff;
+    /* Fondo azul al pasar el mouse */
     color: white;
+    /* Texto blanco para contraste */
 }
 
-/* Barra de búsqueda */
+/* Contenedor para la barra de búsqueda */
 .search-bar {
     display: flex;
+    /* Alineamos el input y el botón en línea */
     justify-content: center;
+    /* Centramos la barra de búsqueda */
     margin: 20px 0;
+    /* Espaciado superior e inferior */
 }
 
+/* Estilo del campo de texto para buscar */
 .search-input {
     width: 250px;
+    /* Ancho fijo */
     padding: 5px;
+    /* Espaciado interno */
     border: 1px solid #ccc;
+    /* Borde gris claro */
     border-radius: 5px;
+    /* Esquinas redondeadas */
 }
 
+/* Botón de búsqueda */
 .search-button {
     padding: 5px 10px;
+    /* Espaciado interno */
     margin-left: 5px;
+    /* Separación con el campo de texto */
     border: 1px solid #ccc;
+    /* Borde gris claro */
     background-color: #f8f8f8;
+    /* Fondo claro */
     cursor: pointer;
+    /* Cambia el cursor al pasar el mouse */
 }
 
+/* Estilo del botón de búsqueda al pasar el mouse */
 .search-button:hover {
     background-color: #007bff;
+    /* Fondo azul */
     color: white;
+    /* Texto blanco */
 }
 
-/* Tarjetas de herramientas */
+/* Contenedor de tarjetas de herramientas */
 .tools-grid {
     display: flex;
+    /* Usamos flexbox para organizar las tarjetas */
     justify-content: space-around;
+    /* Espaciamos uniformemente las tarjetas */
     flex-wrap: wrap;
+    /* Permitimos que las tarjetas bajen de línea si es necesario */
     gap: 20px;
+    /* Espaciado entre tarjetas */
     margin-top: 20px;
+    /* Espaciado superior */
 }
 
+/* Estilo individual para cada tarjeta */
 .tool-card {
-    width: 200px;
+    width: 270px;
+    /* Ancho fijo para uniformidad */
     border: 1px solid #ccc;
+    /* Borde gris claro */
     border-radius: 10px;
+    /* Esquinas redondeadas */
     padding: 10px;
+    /* Espaciado interno */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Sombra para un efecto elevado */
     text-align: center;
+    /* Centra el contenido de la tarjeta */
 }
 
+/* Contenedor de la imagen dentro de la tarjeta */
 .tool-image {
-    height: 80px;
-    margin-bottom: 10px;
+    width: 100%;
+    /* Ocupa todo el ancho disponible de la tarjeta */
+    height: 150px;
+    /* Altura fija para que todas las imágenes sean uniformes */
+    display: flex;
+    /* Usamos flexbox para alinear la imagen */
+    justify-content: center;
+    /* Centra horizontalmente la imagen */
+    align-items: center;
+    /* Centra verticalmente la imagen */
     border: 2px solid #000;
+    /* Borde negro para destacar */
     border-radius: 5px;
+    /* Esquinas redondeadas */
+    margin-bottom: 10px;
+    /* Espaciado con el texto de la tarjeta */
+    overflow: hidden;
+    /* Oculta cualquier parte de la imagen que exceda el contenedor */
 }
 
+/* Estilo de la imagen dentro de tool-image */
+.tool-img {
+    width: 100%;
+    /* La imagen ocupa todo el ancho del contenedor */
+    height: 100%;
+    /* La imagen ocupa todo el alto del contenedor */
+    object-fit: cover;
+    /* Recorta la imagen manteniendo proporciones */
+    border-radius: 5px;
+    /* Coincide con las esquinas del contenedor */
+}
+
+/* Estilo para los textos dentro de la tarjeta */
 .tool-details p {
-    margin: 5px 0;
+    margin: 6px 0;
+    /* Espaciado entre líneas */
     font-size: 14px;
+    /* Tamaño de texto estándar */
 }
 
-/* Botón de cerrar sesión */
+/* Contenedor del botón de cerrar sesión */
 .logout-container {
     margin-top: 20px;
+    /* Espaciado superior */
 }
 
+/* Estilo del botón de cerrar sesión */
 .logout-button {
     padding: 8px 15px;
+    /* Espaciado interno */
     font-size: 14px;
+    /* Tamaño de texto estándar */
     background-color: #dc3545;
+    /* Fondo rojo */
     color: white;
+    /* Texto blanco */
     border: none;
+    /* Sin borde adicional */
     border-radius: 5px;
+    /* Esquinas redondeadas */
     cursor: pointer;
+    /* Cambia el cursor al pasar el mouse */
 }
 
+/* Estilo del botón de cerrar sesión al pasar el mouse */
 .logout-button:hover {
     background-color: #c82333;
+    /* Fondo rojo oscuro */
 }
