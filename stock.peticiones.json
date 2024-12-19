@@ -1,0 +1,27 @@
+[{
+  "_id": {
+    "$oid": "67607fd21e61a3854274d794"
+  },
+  "personal": "Jose",
+  "fecha": "12-12-2024",
+  "herramienta": "destornillador",
+  "estado": "En espera"
+},
+{
+  "_id": {
+    "$oid": "67646ab2f60a693f0f853d8d"
+  },
+  "personal": "Mariluz",
+  "fecha": "15-12-2024",
+  "herramienta": "lampara portatil",
+  "estado": "En espera"
+},
+{
+  "_id": {
+    "$oid": "67646ad5f60a693f0f853d8e"
+  },
+  "personal": "Mariluz",
+  "fecha": "17-12-2024",
+  "herramienta": "Lampara de suelo",
+  "estado": "En espera"
+}]
