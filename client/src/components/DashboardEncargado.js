@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react"; // React, useState y useEffe
 import { signOut } from "firebase/auth"; // Función para cerrar sesión de Firebase
 import { auth } from "../firebase"; // Importo la configuración de Firebase
 import "../styles/DashboardEncargado.css"; // Importo el archivo de estilos CSS para este componente
-import FetchIncidents from './FetchIncidents';
+/* import FetchIncidents from './FetchIncidents'; */
+import { useNavigate } from "react-router-dom"; // Importa useNavigate
 
 
 // Declaro el componente principal DashboardEncargado
@@ -16,8 +17,9 @@ function DashboardEncargado() {
   const [originalTools, setOriginalTools] = useState([])
   // Estado local para manejar posibles errores durante la búsqueda
   const [error, setError] = useState(null);
-
-  const [showIncidents, setShowIncidents] = useState(false);
+  const navigate = useNavigate(); // Inicializa useNavigate
+/* 
+  const [showIncidents, setShowIncidents] = useState(false); */
 
   // Función para cerrar sesión usando Firebase Authentication
   const handleLogout = () => {
@@ -32,6 +34,14 @@ function DashboardEncargado() {
         console.error("Error al cerrar sesión:", error.message);
       });
   };
+
+
+  // Función para navegar a incidencias
+  const handleNavigateToIncidents = () => {
+    navigate("/incidencias");
+  };
+
+
 
   // Efecto para cargar todas las herramientas al montar el componente
   useEffect(() => {
@@ -92,8 +102,7 @@ function DashboardEncargado() {
 
       {/* Grupo de botones para realizar acciones */}
       <div className="button-group">
-      <button onClick={() => setShowIncidents(!showIncidents)}>Incidencias</button>
-      {showIncidents && <FetchIncidents />}
+      <button onClick={handleNavigateToIncidents}>Incidencias</button>
         <button>Peticiones de material</button> {/* Botón para peticiones */}
         <button>Alta de material</button> {/* Botón para alta */}
         <button>Actualizar material</button> {/* Botón para actualizar */}

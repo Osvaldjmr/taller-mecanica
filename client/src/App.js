@@ -3,6 +3,8 @@ import { auth } from "./firebase";
 import Login from "./components/Login";
 import DashboardEncargado from "./components/DashboardEncargado";
 import DashboardMecanico from "./components/DashboardMecanico";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom"; // se instalo react-router-dom para usar 
+import FetchIncidents from './components/FetchIncidents'
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Estado de autenticación
@@ -39,17 +41,28 @@ function App() {
   if (loading) return <p>Cargando...</p>; // Muestra la pantalla de carga
 
   return (
-    <div>
-      {!isLoggedIn ? (
-        <Login onLogin={() => setIsLoggedIn(true)} />
-      ) : role === "encargado" ? (
-        <DashboardEncargado /> // Muestra el Dashboard para Encargados
-      ) : role === "mecanico" ? (
-        <DashboardMecanico /> // Muestra el Dashboard para Mecánicos
-      ) : (
-        <p>No tienes permisos para acceder.</p> // Mensaje para rol no reconocido
-      )}
-    </div>
+    <Router>
+      <Routes>
+        {/* Ruta de login */}
+        {!isLoggedIn ? (
+          <Route path="/" element={<Login onLogin={() => setIsLoggedIn(true)} />} />
+        ) : role === "encargado" ? (
+          <>
+            {/* Rutas para el encargado */}
+            <Route path="/" element={<DashboardEncargado />} />
+            <Route path="/incidencias" element={<FetchIncidents />} />
+          </>
+        ) : role === "mecanico" ? (
+          <>
+            {/* Ruta para el mecánico */}
+            <Route path="/" element={<DashboardMecanico />} />
+          </>
+        ) : (
+          <Route path="/" element={<p>No tienes permisos para acceder.</p>} />
+        )}
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </Router>
   );
 }
 

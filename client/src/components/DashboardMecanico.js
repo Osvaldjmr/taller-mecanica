@@ -83,6 +83,25 @@ function DashboardMecanico() {
                 <button onClick={() => setShowIncidents(!showIncidents)}>Incidencias</button>
                 {showIncidents && <FetchIncidents />}
                 <button className="option-button">Petición de material</button>
+                <div className="options-container">
+                <button onClick={() => setShowIncidents(!showIncidents)}>Incidencias</button>
+                {showIncidents && <FetchIncidents />}
+                <button className="option-button">Petición de material</button>
+                <FetchPetitions />  {/* Aqui he añadido el componente para petición de herramientas */}
+                <div className="search-bar">
+                    <input
+                        type="text"
+                        placeholder="Buscar stock"
+                        value={busqueda}
+                        onChange={handleBusquedaChange}
+                        className="search-input"
+                    />
+                    <button className="search-button">🔍</button>
+                </div>
+            </div>
+
+
+
                 <div className="search-bar">
                     <input
                         type="text"

@@ -82,7 +82,7 @@ async function querySimple(coleccion, query) {
     }
 }
 
-// Sort por un criterio (campo)
+/* // Sort por un criterio (campo)
 async function sortPorCampo(coleccion, campo, orden = 1) {
     const client = await connectToMongo();
     try {
@@ -95,7 +95,7 @@ async function sortPorCampo(coleccion, campo, orden = 1) {
         await client.close();
     }
 }
-
+ */
 
 //Borrar  
 async function borrarDocumento(coleccion, filtro) {
