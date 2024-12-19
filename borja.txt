@@ -56,3 +56,10 @@
 - Implementados endpoints /herramientas, /incidencias, /peticiones para mostrar todo lo que haya en la DB respectivamente.
 
 - Implementados endpoints /herramientas/:nombre /incidencias/:id, /peticiones/:id, para búsquedas concretas.
+
+---------------------- 19/DIC
+
+- Implementados endpoints /peticiones/new e incidencias/new-
+
+- Implementado swagger, para acceder -> 3001/api-docs
+

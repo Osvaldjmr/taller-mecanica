@@ -1,9 +1,0 @@
-[{
-  "_id": {
-    "$oid": "67607fd21e61a3854274d794"
-  },
-  "personal": "Jose",
-  "fecha": "12-12-2024",
-  "herramienta": "destornillador",
-  "estado": "En espera"
-}]
