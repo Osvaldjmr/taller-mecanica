@@ -1,0 +1,63 @@
+/* Contenedor principal */
+.incidents-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Título de la lista */
+  .incidents-container h3 {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  /* Lista de incidencias */
+  .incidents-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .incident-item {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: 10px 0;
+    padding: 15px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Título de la incidencia */
+  .incident-title {
+    font-size: 18px;
+    color: #007bff;
+  }
+  
+  /* Descripción de la incidencia */
+  .incident-description {
+    font-size: 14px;
+    color: #555;
+    margin: 10px 0;
+  }
+  
+  /* Estado de la incidencia */
+  .incident-status {
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  /* Mensajes de carga y error */
+  .loading,
+  .error {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .error {
+    color: red;
+  }
+  
