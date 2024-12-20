@@ -1,0 +1,109 @@
+/* Contenedor principal */
+.incidents-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Título de la lista */
+  .incidents-container h3 {
+    text-align: center;
+    font-size: 24px;
+    color: #f9983e;
+    margin-top: 50px;
+  }
+  
+  /* Lista de incidencias */
+  .incidents-list {
+    margin-top: 80px;
+    list-style-type: none;
+    padding: 0;
+    box-shadow: 0 1px 5px 2px orange;
+    border-radius: 8px;
+  }
+  
+  .incident-item {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: 10px 0;
+    padding: 15px;
+    background-color: #fcfbfb;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
+  }
+
+  
+  /* Título de la incidencia */
+  .incident-title {
+    font-size: 18px;
+    color: #007bff;
+  }
+  
+  /* Descripción de la incidencia */
+  .incident-description {
+    font-size: 14px;
+   
+    margin: 10px 0;
+  }
+  
+  /* Estado de la incidencia */
+  .incident-status {
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  /* Mensajes de carga y error */
+  .loading,
+  .error {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .error {
+    color: red;
+  }
+  .petition-container{
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+  }
+  .petition-container h2{
+    text-align: center;
+    font-size: 24px;
+    color: #f9983e;
+    margin-top:100px;
+    margin-bottom: 50px
+  }
+
+.peticion-form{
+  border-radius: 8px;
+  margin: 10px 0;
+  padding: 15px;
+  background-color: #fcfbfb;
+  box-shadow: 0 1px 5px 2px orange;
+  color:#333;
+}
+
+.peticion-form label{
+    font-weight: bold;
+    color:#333;
+    margin-bottom: 20px;
+    font-size: 16px
+    
+  }
+  .peticion-form input{
+    padding: 10px 20px;
+    font-size: 14px;
+    background-color: #ccc;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+

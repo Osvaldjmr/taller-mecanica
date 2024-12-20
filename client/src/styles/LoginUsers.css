@@ -1,71 +1,108 @@
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgb(53, 50, 50);
+}
+
+.login-container {
+  border: 1px solid #f9983e;
+  box-shadow: 0 4px 6px rgba(#f9983e) !important;
+
+}
+
+.login-container button {
+  margin-top: 30px;
+  background-color: rgb(247, 188, 78);
+  font-weight: bold;
+  cursor: pointer;
+  line-height: 1.5em;
+
+}
+
+.login-container button:hover {
+  padding: 5px;
+}
+
 /* Estilos generales del contenedor */
 .login-container {
-    width: 350px;
-    margin: 50px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
-  }
-  
-  /* Estilo del título */
-  h1 {
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: #333;
-  }
-  
-  /* Estilo de los grupos del formulario */
-  .form-group {
-    margin-bottom: 20px;
-    text-align: left;
-  }
-  
-  /* Etiquetas de los campos */
-  label {
-    display: block;
-    margin-bottom: 5px;
-    color: #555;
-    font-size: 14px;
-  }
-  
-  /* Campos de entrada */
-  input {
-    width: 100%;
-    padding: 5px;
-    border: none;
-    border-bottom: 2px solid #333;
-    outline: none;
-    font-size: 16px;
-    background: transparent;
-  }
-  
-  /* Efecto al enfocar los campos */
-  input:focus {
-    border-bottom: 2px solid #007bff;
-  }
-  
-  /* Botón de ACCEDER */
-  .btn-login {
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .btn-login:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Mensaje de error */
-  .error {
-    color: red;
-    font-size: 14px;
-    margin-bottom: 10px;
-  }
-  
+  width: 350px;
+  margin: 100px auto;
+  padding: 20px;
+  border: 1px solid #f9983e;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(#f9983e);
+  font-family: Arial, sans-serif;
+  background-color: rgb(89, 82, 82);
+}
+
+/* Estilo del título */
+h1 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #555252;
+  color: white;
+}
+
+/* Estilo de los grupos del formulario */
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+/* Etiquetas de los campos */
+label {
+  display: block;
+  margin-bottom: 0px;
+  color: #555;
+  font-size: 12px;
+  text-align: left;
+  margin-top: 50px;
+  color: white;
+  letter-spacing: 1px;
+}
+
+/* Campos de entrada */
+input {
+  width: 100%;
+  padding: 5px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  margin-top: 5px;
+
+}
+
+/* Efecto al enfocar los campos */
+input:focus {
+  border-bottom: 2px solid #f9983e;
+}
+
+/* Botón de ACCEDER */
+.btn-login {
+  padding: 10px 15px;
+  background-color: #f9983e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.btn-login:hover {
+  background-color: #f8a942;
+}
+
+/* Mensaje de error */
+.error {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 10px;
+  font-size: 18px;
+  margin-top: 20px;
+}

@@ -1,6 +1,7 @@
 // firebase.js
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 
 // Configuración de tu proyecto Firebase
@@ -19,3 +20,5 @@ const app = initializeApp(firebaseConfig);
 
 // Exporta el servicio de autenticación
 export const auth = getAuth(app);
+
+export const db = getFirestore(app);
