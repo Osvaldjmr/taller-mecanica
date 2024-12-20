@@ -1,109 +1,109 @@
-/* Reset básico */
-/* body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    color: #333;
-} */
-
-/* Contenedor principal de las peticiones */
-.petitions-container {
-    max-width: 800px;
-    margin: 20px auto;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+/* Contenedor principal */
+.incidents-container {
     padding: 20px;
-}
-
-/* Título */
-.petitions-container h3 {
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Título de la lista */
+  .incidents-container h3 {
     text-align: center;
     font-size: 24px;
-    margin-bottom: 20px;
-    color: #007bff;
-}
-
-/* Lista de peticiones */
-.petitions-list {
-    list-style: none;
+    color: #f9983e;
+    margin-top: 50px;
+  }
+  
+  /* Lista de incidencias */
+  .incidents-list {
+    margin-top: 80px;
+    list-style-type: none;
     padding: 0;
-    margin: 0;
-}
-
-/* Ítems individuales de la lista */
-.petition-item {
-    background: #f9f9f9;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
+    box-shadow: 0 1px 5px 2px orange;
     border-radius: 8px;
+  }
+  
+  .incident-item {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: 10px 0;
     padding: 15px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
+    background-color: #fcfbfb;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
+  }
 
-.petition-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-}
-
-.petition-item p {
-    margin: 5px 0;
-    font-size: 16px;
-}
-
-.petition-item strong {
+  
+  /* Título de la incidencia */
+  .incident-title {
+    font-size: 18px;
+    color: #007bff;
+  }
+  
+  /* Descripción de la incidencia */
+  .incident-description {
+    font-size: 14px;
+   
+    margin: 10px 0;
+  }
+  
+  /* Estado de la incidencia */
+  .incident-status {
+    font-size: 14px;
     color: #333;
+    font-weight: bold;
+  }
+  
+  /* Mensajes de carga y error */
+  .loading,
+  .error {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .error {
+    color: red;
+  }
+  .petition-container{
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+  }
+  .petition-container h2{
+    text-align: center;
+    font-size: 24px;
+    color: #f9983e;
+    margin-top:100px;
+    margin-bottom: 50px
+  }
+
+.peticion-form{
+  border-radius: 8px;
+  margin: 10px 0;
+  padding: 15px;
+  background-color: #fcfbfb;
+  box-shadow: 0 1px 5px 2px orange;
+  color:#333;
 }
 
-/* Botones de acción */
-.action-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-}
-
-.approve-button,
-.deny-button {
-    padding: 8px 15px;
+.peticion-form label{
+    font-weight: bold;
+    color:#333;
+    margin-bottom: 20px;
+    font-size: 16px
+    
+  }
+  .peticion-form input{
+    padding: 10px 20px;
+    font-size: 14px;
+    background-color: #ccc;
+    color: #333;
     border: none;
     border-radius: 5px;
-    font-size: 14px;
     cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.2s ease;
-}
+  }
 
-.approve-button {
-    background-color: #28a745;
-    color: white;
-}
 
-.approve-button:hover {
-    background-color: #218838;
-    transform: scale(1.05);
-}
-
-.deny-button {
-    background-color: #dc3545;
-    color: white;
-}
-
-.deny-button:hover {
-    background-color: #c82333;
-    transform: scale(1.05);
-}
-
-/* Mensaje de carga */
-.loading {
-    text-align: center;
-    font-size: 18px;
-    color: #555;
-}
-
-/* Mensaje de error */
-.error {
-    text-align: center;
-    color: #dc3545;
-    font-size: 18px;
-    font-weight: bold;
-    margin-top: 20px;
-}

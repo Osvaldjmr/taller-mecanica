@@ -158,3 +158,26 @@ body {
     font-size: 18px;
     margin-top: 20px;
 }
+.option-button{
+
+/* Espaciado horizontal entre botones */
+padding: 8px 15px;
+/* Espaciado interno del botón */
+font-size: 14px;
+/* Tamaño del texto */
+background-color: #f6ba82f3;
+/* Color de fondo claro */
+border: 1px solid #ccc;
+/* Borde gris claro */
+border-radius: 5px;
+/* Esquinas redondeadas */
+cursor: pointer;
+font-weight: bold;
+/* Cambia el cursor al pasar sobre el botón */
+}
+.option-button:hover{
+    background-color: #f9983e;
+    /* Fondo azul al pasar el mouse */
+    color: #372c2c;
+    /* Texto blanco para contraste */
+}

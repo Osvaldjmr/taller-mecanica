@@ -1,6 +1,0 @@
-npm install swagger-ui-express
-1 instale swagger en server
-2 verifique que swagger-ui-express esta en las dependencias de package.json
-3 elimine y reinstale node modules
-4 revise si la importacion de swagger esta correcta en el index.js
-5 Instal3 swagger-jsdoc:  para instalar el paquete que faltaba

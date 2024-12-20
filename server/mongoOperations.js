@@ -6,7 +6,7 @@ const url = "mongodb://127.0.0.1:27017/"; // URL de conexión
 
 /**
  * Conecta al cliente de MongoDB.
- * @returns {Promise<MongoClient>} Cliente de MongoDB conectado.
+ * @returns {Promise<MongoClient>}
  */
 async function connectToMongo() {
     const client = new MongoClient(url);
@@ -32,15 +32,10 @@ async function crearBaseDeDatos() {
  */
 async function crearColeccion(coleccion) {
     const client = await connectToMongo();
-    try {
-        const db = client.db(mydb);
-        await db.createCollection(coleccion);
-        console.log(`Colección '${coleccion}' creada.`);
-    } catch (error) {
-        console.error(`Error al crear la colección '${coleccion}':`, error);
-    } finally {
-        await client.close();
-    }
+    const db = client.db(mydb);
+    await db.createCollection(coleccion);
+    console.log(`Colección '${coleccion}' creada.`);
+    await client.close();
 }
 
 // ======= OPERACIONES CON DOCUMENTOS ======= //
@@ -52,13 +47,25 @@ async function crearColeccion(coleccion) {
  */
 async function insertarDocumento(coleccion, documento) {
     const client = await connectToMongo();
+    const db = client.db(mydb);
+    const collection = db.collection(coleccion);
+    const resultado = await collection.insertOne(documento);
+    console.log(`Documento insertado con ID: ${resultado.insertedId}`);
+    await client.close();
+}
+
+/**
+ * Consulta el primer documento de una colección.
+ * @param {string} coleccion - Nombre de la colección.
+ * @returns {Promise<Object>} - Primer documento encontrado.
+ */
+async function obtenerPrimerElemento(coleccion) {
+    const client = await connectToMongo();
     try {
         const db = client.db(mydb);
         const collection = db.collection(coleccion);
-        const resultado = await collection.insertOne(documento);
-        console.log(`Documento insertado con ID: ${resultado.insertedId}`);
-    } catch (error) {
-        console.error("Error al insertar documento:", error);
+        const result = await collection.findOne({});
+        return result;
     } finally {
         await client.close();
     }
@@ -67,39 +74,52 @@ async function insertarDocumento(coleccion, documento) {
 /**
  * Consulta todos los documentos de una colección.
  * @param {string} coleccion - Nombre de la colección.
- * @returns {Promise<Array>} Lista de documentos.
+ * @returns {Promise<Array>} - Lista de documentos.
  */
 async function verTodos(coleccion) {
     const client = await connectToMongo();
     try {
         const db = client.db(mydb);
         const collection = db.collection(coleccion);
-        return await collection.find({}).toArray();
-    } catch (error) {
-        console.error(`Error al obtener documentos de '${coleccion}':`, error);
-        throw error;
+        const result = await collection.find({}).toArray();
+        return result;
     } finally {
         await client.close();
     }
 }
 
 /**
- * Actualiza un documento en una colección.
+ * Realiza una consulta específica en una colección.
  * @param {string} coleccion - Nombre de la colección.
- * @param {Object} filtro - Filtro para identificar el documento.
- * @param {Object} actualizacion - Datos a actualizar.
+ * @param {Object} query - Consulta a realizar.
+ * @returns {Promise<Array>} - Resultados de la consulta.
  */
-async function actualizarDocumento(coleccion, filtro, actualizacion) {
+async function querySimple(coleccion, query) {
     const client = await connectToMongo();
     try {
         const db = client.db(mydb);
         const collection = db.collection(coleccion);
-        const resultado = await collection.updateOne(filtro, { $set: actualizacion });
-        console.log(`${resultado.modifiedCount} documento(s) actualizado(s).`);
-        return resultado;
-    } catch (error) {
-        console.error("Error al actualizar documento:", error);
-        throw error;
+        const result = await collection.find(query).toArray();
+        return result;
+    } finally {
+        await client.close();
+    }
+}
+
+/**
+ * Ordena los documentos de una colección por un campo.
+ * @param {string} coleccion - Nombre de la colección.
+ * @param {string} campo - Campo por el cual ordenar.
+ * @param {number} orden - 1 para ascendente, -1 para descendente.
+ * @returns {Promise<Array>} - Documentos ordenados.
+ */
+async function sortPorCampo(coleccion, campo, orden = 1) {
+    const client = await connectToMongo();
+    try {
+        const db = client.db(mydb);
+        const collection = db.collection(coleccion);
+        const result = await collection.find().sort({ [campo]: orden }).toArray();
+        return result;
     } finally {
         await client.close();
     }
@@ -112,24 +132,48 @@ async function actualizarDocumento(coleccion, filtro, actualizacion) {
  */
 async function borrarDocumento(coleccion, filtro) {
     const client = await connectToMongo();
+    const db = client.db(mydb);
+    const collection = db.collection(coleccion);
+    const resultado = await collection.deleteOne(filtro);
+    console.log(`${resultado.deletedCount} documento(s) borrado(s).`);
+    await client.close();
+}
+
+/**
+ * Actualiza un documento en una colección.
+ * @param {string} coleccion - Nombre de la colección.
+ * @param {Object} filtro - Filtro para identificar el documento.
+ * @param {Object} actualizacion - Datos a actualizar.
+ */
+async function actualizarDocumento(coleccion, filtro, actualizacion) {
+    const client = await connectToMongo();
+    const db = client.db(mydb);
+    const collection = db.collection(coleccion);
+
     try {
-        const db = client.db(mydb);
-        const collection = db.collection(coleccion);
-        const resultado = await collection.deleteOne(filtro);
-        console.log(`${resultado.deletedCount} documento(s) borrado(s).`);
+        const resultado = await collection.updateOne(filtro, { $set: actualizacion });
+        console.log("Resultado de updateOne:", resultado); // Log de depuración
+        return resultado; // Retorna el resultado completo
     } catch (error) {
-        console.error("Error al borrar documento:", error);
+        console.error("Error en actualizarDocumento:", error);
+        throw error; // Lanza el error al endpoint
     } finally {
         await client.close();
     }
 }
+
+
+
 
 // Exporta todas las funciones
 module.exports = {
     crearBaseDeDatos,
     crearColeccion,
     insertarDocumento,
+    obtenerPrimerElemento,
     verTodos,
+    querySimple,
+    sortPorCampo,
     borrarDocumento,
     actualizarDocumento,
 };

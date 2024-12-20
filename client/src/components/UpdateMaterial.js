@@ -1,16 +1,6 @@
-/**
- * @file UpdateMaterial.js
- * @author
- * Natalia, Anamaria, Borja, Osvaldo
- * @date 19/12/2024
- * @description Componente para actualizar los datos de un material almacenado en la base de datos. Permite seleccionar un material existente y modificar sus propiedades.
- * @version 1.0.0
- */
-
 import React, { useState, useEffect } from "react";
 
 const UpdateMaterial = () => {
-    // ======== ESTADOS ======== //
     const [materiales, setMateriales] = useState([]); // Lista de materiales disponibles
     const [selectedMaterial, setSelectedMaterial] = useState(null); // Material seleccionado para editar
     const [formData, setFormData] = useState({
@@ -22,21 +12,15 @@ const UpdateMaterial = () => {
         foto: "",
     });
 
-    // ======== EFECTOS ======== //
+    // Cargar materiales disponibles
     useEffect(() => {
-        // Fetch para cargar la lista de materiales disponibles
         fetch("http://localhost:3001/herramientas")
             .then((response) => response.json())
-            .then((data) => setMateriales(data)) // Guarda los materiales en el estado
+            .then((data) => setMateriales(data))
             .catch((err) => console.error("Error al cargar materiales:", err));
     }, []);
 
-    // ======== MANEJADORES ======== //
-
-    /**
-     * Maneja los cambios en los inputs del formulario.
-     * @param {Event} e - Evento del formulario.
-     */
+    // Maneja el cambio en los inputs del formulario
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({
@@ -45,28 +29,22 @@ const UpdateMaterial = () => {
         }));
     };
 
-    /**
-     * Maneja la selección de un material del desplegable.
-     * @param {string} id - ID del material seleccionado.
-     */
+    // Maneja la selección del material
     const handleSelectMaterial = (id) => {
-        const material = materiales.find((mat) => mat._id === id); // Busca el material por ID
-        setSelectedMaterial(material); // Define el material seleccionado
-        setFormData(material); // Rellena el formulario con los datos del material
+        const material = materiales.find((mat) => mat._id === id);
+        setSelectedMaterial(material);
+        setFormData(material); // Carga los datos actuales en el formulario
     };
 
-    /**
-     * Maneja el envío del formulario.
-     * @param {Event} e - Evento del formulario.
-     */
+    // Maneja el envío del formulario
     const handleSubmit = (e) => {
-        e.preventDefault(); // Previene el comportamiento predeterminado del formulario
+        e.preventDefault();
         fetch(`http://localhost:3001/herramientas/${selectedMaterial._id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(formData), // Envía los datos actualizados al backend
+            body: JSON.stringify(formData),
         })
             .then((response) => {
                 if (!response.ok) {
@@ -76,20 +54,15 @@ const UpdateMaterial = () => {
             })
             .then((data) => {
                 console.log("Material actualizado:", data);
-                setSelectedMaterial(null); // Limpia el material seleccionado
+                setSelectedMaterial(null);
             })
             .catch((err) => console.error("Error:", err));
     };
 
-    // ======== RENDERIZADO ======== //
     return (
-        <div className="update-material-container">
+        <div>
             <h2>Actualizar Material</h2>
-            {/* Desplegable para seleccionar un material */}
-            <select
-                onChange={(e) => handleSelectMaterial(e.target.value)}
-                className="material-select"
-            >
+            <select onChange={(e) => handleSelectMaterial(e.target.value)}>
                 <option value="">Selecciona un material</option>
                 {materiales.map((material) => (
                     <option key={material._id} value={material._id}>
@@ -97,10 +70,8 @@ const UpdateMaterial = () => {
                     </option>
                 ))}
             </select>
-
-            {/* Formulario para editar un material */}
             {selectedMaterial && (
-                <form className="update-material-form" onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
                     <label>
                         Nombre:
                         <input
@@ -108,7 +79,6 @@ const UpdateMaterial = () => {
                             name="nombre"
                             value={formData.nombre}
                             onChange={handleChange}
-                            required
                         />
                     </label>
                     <label>
@@ -118,7 +88,6 @@ const UpdateMaterial = () => {
                             name="tipo"
                             value={formData.tipo}
                             onChange={handleChange}
-                            required
                         />
                     </label>
                     <label>
@@ -128,7 +97,6 @@ const UpdateMaterial = () => {
                             name="marca"
                             value={formData.marca}
                             onChange={handleChange}
-                            required
                         />
                     </label>
                     <label>
@@ -138,7 +106,6 @@ const UpdateMaterial = () => {
                             name="cantidad"
                             value={formData.cantidad}
                             onChange={handleChange}
-                            required
                         />
                     </label>
                     <label>
@@ -147,7 +114,6 @@ const UpdateMaterial = () => {
                             name="descripcion"
                             value={formData.descripcion}
                             onChange={handleChange}
-                            required
                         />
                     </label>
                     <label>
@@ -159,13 +125,11 @@ const UpdateMaterial = () => {
                             onChange={handleChange}
                         />
                     </label>
-                    <button type="submit" className="update-button">
-                        Actualizar
-                    </button>
+                    <button type="submit">Actualizar</button>
                 </form>
             )}
         </div>
     );
 };
 
-export default UpdateMaterial; // Exporta el componente
+export default UpdateMaterial;
