@@ -1,181 +1,216 @@
+/**
+ * @file index.js
+ * @description Configuración del servidor backend utilizando Express para manejar incidencias, herramientas y peticiones.
+ * @version 1.0.0
+ * @author
+ * Natalia, Anamaria, Borja, Osvaldo
+ * @date 19/12/2024
+ */
+
+// ===== IMPORTACIÓN DE DEPENDENCIAS ===== //
 const express = require("express");
 const cors = require("cors");
-const { ObjectId } = require('mongodb');
+const { ObjectId } = require("mongodb");
+const swaggerJsDoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
+const swaggerOptions = require("./swaggerOptions");
 
 const {
-  crearBaseDeDatos,
-  crearColeccion,
-  insertarDocumento,
-  verTodos,
-  querySimple,
-} = require("./mongoOperations"); // Importamos las operaciones de MongoDB
+    insertarDocumento,
+    verTodos,
+    actualizarDocumento,
+} = require("./mongoOperations");
 
+// ===== CONFIGURACIÓN DEL SERVIDOR ===== //
 const app = express();
-
-
-// Middleware
-app.use(cors()); // Permitir solicitudes desde el frontend
-app.use(express.urlencoded({ extended: true })); // Parseo de datos enviados desde formularios
-app.use(express.json()); // Parseo de JSON enviado desde el frontend
-
-// Ruta principal (comprobación del servidor)
-app.get("/", (req, res) => {
-  res.send("Servidor conectado correctamente.");
-});
-
-//
-// ======== INCIDENCIAS ========
-//
-
-// B Esto permite mostrar todas las incidencias de la DB // codigo de borja
-/* app.get('/incidencias', async (req, res) => {
-  let todos = await verTodos("incidencias");
-  res.json(todos);
-}); */
-
-
-
-app.get("/incidencias", async (req, res) => {
-  try {
-    const incidencias = await verTodos("incidencias"); // Consulta todas las incidencias
-    res.json(incidencias); // Retorna las incidencias en formato JSON
-  } catch (err) {
-    console.error("Error al obtener incidencias:", err);
-    res.status(500).send("Error al obtener incidencias.");
-  }
-});
-
-// B: Esto permite buscar la incidencia que coincida con el ID que pongo en la url//codigo de borja
-/* app.get('/incidencias/:id', async (req, res) => {
-  const id = req.params.id;
-  const objectId = new ObjectId(id);
-
-  const todos = await querySimple("incidencias", { _id: objectId });
-  res.json(todos);
-}); */
-
-
-// Endpoint para obtener una incidencia específica por ID
-app.get("/incidencias/:id", async (req, res) => {
-  const id = req.params.id;
-  try {
-    const objectId = new ObjectId(id); // Convertimos el ID a ObjectId de MongoDB
-    const incidencia = await querySimple("incidencias", { _id: objectId }); // Buscamos por ID
-    if (!incidencia.length) {
-      return res.status(404).send("Incidencia no encontrada."); // Si no existe
-    }
-    res.json(incidencia[0]); // Retornamos la incidencia encontrada
-  } catch (err) {
-    console.error("Error al buscar la incidencia:", err);
-    res.status(500).send("Error al buscar la incidencia.");
-  }
-});
-
-// Endpoint para insertar una nueva incidencia
-app.post("/incidencias", async (req, res) => {
-  const { title, description, status } = req.body;
-  try {
-    const nuevaIncidencia = { title, description, status: status || "Abierta" }; // Campos básicos
-    const result = await insertarDocumento("incidencias", nuevaIncidencia);
-    res.status(201).json({ message: "Incidencia creada con éxito", data: result });
-  } catch (err) {
-    console.error("Error al insertar incidencia:", err);
-    res.status(500).send("Error al insertar incidencia.");
-  }
-});
-
-//
-// ======== HERRAMIENTAS ========
-//
-
-
-
-// Endpoint para obtener todas las herramientas o buscar herramientas por nombre
-app.get("/herramientas", async (req, res) => {
-  try {
-    const { search } = req.query; // Parámetro de búsqueda opcional
-    const query = search ? { nombre: new RegExp(search, "i") } : {}; // Filtramos por nombre si `search` existe
-    const herramientas = await verTodos("herramientas", query); // Obtenemos herramientas
-    res.json(herramientas);
-  } catch (err) {
-    console.error("Error al obtener herramientas:", err);
-    res.status(500).send("Error al obtener herramientas.");
-  }
-});
-
-// Endpoint para insertar nuevas herramientas//codigo de borja
-/* app.post("/herramientas", async (req, res) => {
-  const newTool = req.body;
-  try {
-    const result = await insertarDocumento("herramientas", newTool);
-    res.status(201).json({ message: "Herramienta agregada con éxito", data: result });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Error al agregar la herramienta");
-  }
-}); */
-
-
-
-// Endpoint para agregar una nueva herramienta
-app.post("/herramientas", async (req, res) => {
-  try {
-    const nuevaHerramienta = req.body; // Asumimos que los datos vienen en el body
-    const result = await insertarDocumento("herramientas", nuevaHerramienta);
-    res.status(201).json({ message: "Herramienta agregada con éxito", data: result });
-  } catch (err) {
-    console.error("Error al agregar herramienta:", err);
-    res.status(500).send("Error al agregar herramienta.");
-  }
-});
-
-//
-// ======== PETICIONES ========
-//
-
-// B Esto permite mostrar todas las peticiones de la DB//codigo antiguo
-/* app.get('/peticiones', async (req, res) => {
-  let todos = await verTodos("peticiones");
-  res.json(todos);
-}); */
-
-app.get("/peticiones", async (req, res) => {
-  try {
-    const peticiones = await verTodos("peticiones"); // Obtenemos todas las peticiones
-    res.json(peticiones);
-  } catch (err) {
-    console.error("Error al obtener peticiones:", err);
-    res.status(500).send("Error al obtener peticiones.");
-  }
-});
-
-// Endpoint para agregar una nueva petición
-app.post("/peticiones", async (req, res) => {
-  const { nombre, cantidad, motivo } = req.body;
-  try {
-    const nuevaPeticion = { nombre, cantidad, motivo, estado: "Pendiente" }; // Campos básicos
-    const result = await insertarDocumento("peticiones", nuevaPeticion);
-    res.status(201).json({ message: "Petición creada con éxito", data: result });
-  } catch (err) {
-    console.error("Error al agregar petición:", err);
-    res.status(500).send("Error al agregar petición.");
-  }
-});
-
-//
-// ======== CONFIGURACIÓN DEL SERVIDOR ========
-//
-// Puerto del servidor
 const PORT = 3001;
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+
+// Configuración de Swagger
+const specs = swaggerJsDoc(swaggerOptions);
+
+// ===== MIDDLEWARE ===== //
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
+
+// ===== RUTAS ===== //
+
+/**
+ * Verifica que el servidor esté activo.
+ */
+app.get("/", (req, res) => {
+    res.send("Servidor conectado correctamente.");
 });
 
+// ===== RUTAS DE INCIDENCIAS ===== //
+/**
+ * Obtiene todas las incidencias.
+ */
+app.get("/incidencias", async (req, res) => {
+    try {
+        const incidencias = await verTodos("incidencias");
+        res.json(incidencias);
+    } catch (err) {
+        console.error("Error al obtener incidencias:", err);
+        res.status(500).send("Error al obtener incidencias.");
+    }
+});
 
+/**
+ * Inserta una nueva incidencia.
+ */
+app.post("/incidencias/new", async (req, res) => {
+    try {
+        await insertarDocumento("incidencias", req.body);
+        res.status(201).json({ message: "Incidencia creada con éxito." });
+    } catch (err) {
+        console.error("Error al insertar incidencia:", err);
+        res.status(500).send("Error al insertar incidencia.");
+    }
+});
 
+/**
+ * Actualiza el estado de una incidencia.
+ */
+app.patch("/incidencias/:id", async (req, res) => {
+    const { id } = req.params;
 
+    if (!ObjectId.isValid(id)) {
+        return res.status(400).json({ message: "ID no válido." });
+    }
 
+    const objectId = new ObjectId(id);
+    const { estado } = req.body;
 
+    try {
+        const result = await actualizarDocumento("incidencias", { _id: objectId }, { estado });
 
+        if (!result.modifiedCount) {
+            return res.status(404).json({ message: "Incidencia no encontrada o no modificada." });
+        }
 
+        res.json({ message: "Incidencia actualizada con éxito." });
+    } catch (err) {
+        console.error("Error al actualizar incidencia:", err);
+        res.status(500).send("Error al actualizar incidencia.");
+    }
+});
 
+// ===== RUTAS DE HERRAMIENTAS ===== //
+/**
+ * Inserta una nueva herramienta.
+ */
+app.post("/herramientas/new", async (req, res) => {
+    try {
+        await insertarDocumento("herramientas", req.body);
+        res.status(201).json({ message: "Herramienta insertada con éxito." });
+    } catch (err) {
+        console.error("Error al insertar herramienta:", err);
+        res.status(500).send("Error al insertar herramienta.");
+    }
+});
+
+/**
+ * Obtiene todas las herramientas.
+ */
+app.get("/herramientas", async (req, res) => {
+    try {
+        const herramientas = await verTodos("herramientas");
+        res.json(herramientas);
+    } catch (err) {
+        console.error("Error al obtener herramientas:", err);
+        res.status(500).send("Error al obtener herramientas.");
+    }
+});
+
+/**
+ * Actualiza una herramienta.
+ */
+app.patch("/herramientas/:id", async (req, res) => {
+    const { id } = req.params;
+    const { visible, ...updatedFields } = req.body;
+
+    if (!ObjectId.isValid(id)) {
+        return res.status(400).json({ message: "ID no válido." });
+    }
+
+    const objectId = new ObjectId(id);
+
+    try {
+        const result = await actualizarDocumento("herramientas", { _id: objectId }, { ...updatedFields, visible });
+
+        if (!result.modifiedCount) {
+            return res.status(404).json({ message: "Herramienta no encontrada o no modificada." });
+        }
+
+        res.json({ message: "Herramienta actualizada con éxito." });
+    } catch (err) {
+        console.error("Error al actualizar herramienta:", err);
+        res.status(500).send("Error al actualizar herramienta.");
+    }
+});
+
+// ===== RUTAS DE PETICIONES ===== //
+/**
+ * Obtiene todas las peticiones.
+ */
+app.get("/peticiones", async (req, res) => {
+    try {
+        const peticiones = await verTodos("peticiones");
+        res.json(peticiones);
+    } catch (err) {
+        console.error("Error al obtener peticiones:", err);
+        res.status(500).send("Error al obtener peticiones.");
+    }
+});
+
+/**
+ * Inserta una nueva petición.
+ */
+app.post("/peticiones/new", async (req, res) => {
+    try {
+        const nuevaPeticion = {
+            ...req.body,
+            estado: req.body.estado || "Abierta",
+        };
+
+        await insertarDocumento("peticiones", nuevaPeticion);
+        res.status(201).json({ message: "Petición creada con éxito." });
+    } catch (err) {
+        console.error("Error al insertar petición:", err);
+        res.status(500).send("Error al insertar petición.");
+    }
+});
+
+/**
+ * Actualiza el estado de una petición.
+ */
+app.patch("/peticiones/:id", async (req, res) => {
+    const { id } = req.params;
+
+    if (!ObjectId.isValid(id)) {
+        return res.status(400).json({ message: "ID no válido." });
+    }
+
+    const objectId = new ObjectId(id);
+    const { estado } = req.body;
+
+    try {
+        const result = await actualizarDocumento("peticiones", { _id: objectId }, { estado });
+
+        if (!result.modifiedCount) {
+            return res.status(404).json({ message: "Petición no encontrada o no modificada." });
+        }
+
+        res.json({ message: "Petición actualizada con éxito." });
+    } catch (err) {
+        console.error("Error al actualizar petición:", err);
+        res.status(500).send("Error al actualizar petición.");
+    }
+});
+
+// ===== INICIO DEL SERVIDOR ===== //
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+});

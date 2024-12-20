@@ -1,61 +1,73 @@
-// Importamos las dependencias necesarias
-import React, { useEffect, useState } from "react";
-/* import Incidencias from "./Incidencias";
-import NecesidadDeMaterial from "./NecesidadDeMaterial";
-import HerramientaCard from "./HerramientaCard"; */
-import "../styles/DashboardMecanico.css";
-import FetchIncidents from './FetchIncidents';
+/**
+ * @file DashboardMecanico.js
+ * @author Natalia
+ * @date 19/12/2024
+ * @description Componente principal para la interfaz del mecánico. Permite realizar peticiones de material, notificar incidencias y visualizar herramientas disponibles.
+ * @version 1.0.0
+ */
 
-
-import { signOut } from "firebase/auth"; // Función para cerrar sesión de Firebase
+import React, { useEffect, useState } from "react"; // Manejo de estados y efectos en React
+import { useNavigate } from "react-router-dom"; // Navegación entre rutas
+import { signOut } from "firebase/auth"; // Cierre de sesión con Firebase
 import { auth } from "../firebase"; // Configuración de Firebase
+import "../styles/DashboardMecanico.css"; // Estilos específicos del dashboard
+import logo from "../logo.jpg"; // Logo del sistema
 
-// Componente principal DashboardMecanico
+// Componente principal para el Dashboard de Mecánicos
 function DashboardMecanico() {
-    // Estados para manejar los inputs y la lógica del componente
-    const [incidencia, setIncidencia] = useState(""); // Input para incidencia
-    const [necesidad, setNecesidad] = useState(""); // Input para necesidad
-    const [busqueda, setBusqueda] = useState(""); // Input para buscar herramientas
-    const [herramientas, setHerramientas] = useState([]); // Lista de herramientas obtenidas del backend (Nuevo código)
-    const [herramientasFiltradas, setHerramientasFiltradas] = useState([]); // Lista filtrada de herramientas según la búsqueda (Nuevo código)
-    const [error, setError] = useState(null); // Manejo de errores (inicialmente `null`)
-
-    const [showIncidents, setShowIncidents] = useState(false);
+    // ======== ESTADOS ======== //
+    const [busqueda, setBusqueda] = useState(""); // Almacena el término de búsqueda
+    const [herramientas, setHerramientas] = useState([]); // Lista completa de herramientas
+    const [herramientasFiltradas, setHerramientasFiltradas] = useState([]); // Lista de herramientas filtradas
+    const [error, setError] = useState(null); // Estado para manejar errores
 
 
-    //Efecto para cargar las herramientas desde la base de datos al montar el componente
-    //useEffect para cargar herramientas desde el servidor.
+    const navigate = useNavigate(); // Hook para manejar la navegación
+
+    // ======== FUNCIONES DE NAVEGACIÓN ======== //
+
+    // Navega a la página de notificación de incidencias
+    const handleNavigateToIncidences = () => {
+        navigate("/incidencias");
+    };
+
+    // Navega a la página de petición de material
+    const handleNavigateToPetitions = () => {
+        navigate("/peticiones");
+    };
+
+    // ======== EFECTO PARA CARGAR HERRAMIENTAS ======== //
     useEffect(() => {
-        // Realizamos una solicitud al backend para obtener herramientas
-        fetch("http://localhost:3001/herramientas") // Cambiar la URL al endpoint real
+        // Fetch inicial para cargar herramientas desde el backend
+        fetch("http://localhost:3001/herramientas") // Endpoint para obtener herramientas
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Error al obtener las herramientas");
                 }
-                return response.json(); // Parseamos la respuesta como JSON
+                return response.json(); // Convierte la respuesta en JSON
             })
             .then((data) => {
-                setHerramientas(data); // Guardamos las herramientas obtenidas
-                setHerramientasFiltradas(data); // Inicializamos la lista filtrada con todos los datos
+                // Filtra herramientas visibles
+                const visibles = data.filter((herramienta) => herramienta.visible !== false);
+                setHerramientas(visibles); // Almacena las herramientas visibles
+                setHerramientasFiltradas(visibles); // Inicializa la lista filtrada
             })
             .catch((err) => {
                 console.error("Error al cargar las herramientas:", err);
-                setError("Hubo un error al cargar las herramientas."); // Manejamos el error y mostramos un mensaje
+                setError("Hubo un error al cargar las herramientas."); // Muestra mensaje de error
             });
-    }, []); // Solo se ejecuta al montar el componente
+    }, []); // Se ejecuta al montar el componente
 
-    // Manejamos los cambios en el input de búsqueda
+    // ======== MANEJADORES ======== //
+
+    // Maneja el cambio en el input de búsqueda
     const handleBusquedaChange = (e) => {
-        setBusqueda(e.target.value); // Actualizamos el estado de búsqueda
-        // Filtramos herramientas basadas en el texto ingresado
+        setBusqueda(e.target.value); // Actualiza el término de búsqueda
         const filtradas = herramientas.filter((herramienta) =>
             herramienta.nombre.toLowerCase().includes(e.target.value.toLowerCase())
         );
-        setHerramientasFiltradas(filtradas); // Actualizamos la lista de herramientas filtradas
+        setHerramientasFiltradas(filtradas); // Actualiza la lista filtrada
     };
-
-    // Código antiguo para buscar herramientas reemplazado:
-    // const handleBuscarStockClick = mostrarHerramientas.filter(herramienta => herramienta.nombre.toLowerCase().includes(busqueda.toLowerCase()));
 
     // Maneja el cierre de sesión
     const handleLogout = () => {
@@ -68,41 +80,24 @@ function DashboardMecanico() {
             });
     };
 
+    // ======== RENDERIZADO ======== //
     return (
-        <div className="dashboard-container">
+        <div className="dashboard-container"> {/* Contenedor principal */}
+
             {/* Encabezado */}
             <header className="dashboard-header">
                 <div className="logo-container">
-                    <img src="logo.png" alt="Logo Mechanical" className="logo" />
+                    <img src={logo} alt="Logo Mechanical" className="logo" />
                     <h1 className="title">Área de Mecánicos</h1>
                 </div>
             </header>
 
             {/* Barra de opciones */}
             <div className="options-container">
-                <button onClick={() => setShowIncidents(!showIncidents)}>Incidencias</button>
-                {showIncidents && <FetchIncidents />}
-                <button className="option-button">Petición de material</button>
-                <div className="options-container">
-                <button onClick={() => setShowIncidents(!showIncidents)}>Incidencias</button>
-                {showIncidents && <FetchIncidents />}
-                <button className="option-button">Petición de material</button>
-                <FetchPetitions />  {/* Aqui he añadido el componente para petición de herramientas */}
-                <div className="search-bar">
-                    <input
-                        type="text"
-                        placeholder="Buscar stock"
-                        value={busqueda}
-                        onChange={handleBusquedaChange}
-                        className="search-input"
-                    />
-                    <button className="search-button">🔍</button>
-                </div>
-            </div>
+                <button className="option-button" onClick={handleNavigateToIncidences}>Notificar Incidencias</button>
+                <button className="option-button" onClick={handleNavigateToPetitions}>Petición de material</button>
 
-
-
-                <div className="search-bar">
+                <div className="search-bar"> {/* Barra de búsqueda */}
                     <input
                         type="text"
                         placeholder="Buscar stock"
@@ -122,7 +117,6 @@ function DashboardMecanico() {
                     herramientasFiltradas.map((herramienta, index) => (
                         <div key={index} className={`tool-card ${herramienta.cantidad === 0 ? "low-stock" : ""}`}>
                             <img src={herramienta.foto || "/default-image.jpg"} alt={herramienta.nombre} className="tool-image" />
-
                             <p><strong>Nombre:</strong> {herramienta.nombre}</p>
                             <p><strong>Tipo:</strong> {herramienta.tipo}</p>
                             <p><strong>Marca:</strong> {herramienta.marca}</p>
@@ -143,4 +137,5 @@ function DashboardMecanico() {
     );
 }
 
+// Exportamos el componente para usarlo en otras partes de la aplicación
 export default DashboardMecanico;
