@@ -1,4 +1,54 @@
-*crreado el componente AreDeMecanico
-*Cambiado AreaDeMecanico a DashboardMecanico
-*19.12.2024 Creado FetchPetition, dentro creado un formulario para las nuevas peticiones.
-// Componente para el formulario de petición de herramientas
+*crreado el componente AreDeMecanico, el principal interfaz del mecánico
+*Cambiado AreaDeMecanico a DashboardMecanico. Este componente permite a los mecánicos realizar peticiones de material, notificar incidencias y visualizar las herramientas disponibles.
+*que hace => Importaciones: Importa varias dependencias necesarias como React, hooks (useEffect, useState), 
+            navegación (useNavigate), cierre de sesión (signOut), configuración de Firebase (auth), estilos CSS específicos y un logo.
+          => Estados:
+                *busqueda: Almacena el término de búsqueda.
+                *herramientas: Lista completa de herramientas.
+                *herramientasFiltradas: Lista de herramientas filtradas según la búsqueda.
+                *error: Maneja errores.
+          => Navegación:
+                *handleNavigateToIncidences: Navega a la página de notificación de incidencias.
+                *handleNavigateToPetitions: Navega a la página de petición de material.
+          => Efecto para cargar herramientas:
+                *Usa useEffect para hacer un fetch inicial de herramientas desde el backend.
+                *Filtra las herramientas visibles y las almacena en los estados correspondientes.
+                *Maneja errores en caso de que el fetch falle.
+          => Manejadores:
+                *handleBusquedaChange: Actualiza el término de búsqueda y filtra las herramientas según el término ingresado.
+                *handleLogout: Maneja el cierre de sesión usando Firebase.
+          => Renderizado:
+                *Contenedor principal con clases CSS específicas.
+                *Encabezado con el logo y el título "Área de Mecánicos".
+                *Barra de opciones con botones para notificar incidencias y pedir material, y una barra de búsqueda.
+                *Grid de herramientas que muestra las herramientas filtradas o un mensaje de error si no se encuentran herramientas.
+                *Botón para cerrar sesión.
+
+*19.12.2024 Creado FetchPetition, dentro creado un formulario para las nuevas peticiones. Cambiado a SendPetitions
+ Componente para el formulario de petición de herramientas. Este componente permite a los mecánicos solicitar herramientas disponibles, 
+incluyendo datos como el personal encargado, la fecha de la solicitud y la herramienta requerida.
+*que hace: => Importaciones: Importa React y los hooks useState y useEffect.
+           => Estados:
+                *personal: Almacena el nombre del personal que realiza la solicitud.
+                *fecha: Almacena la fecha de la solicitud.
+                *herramienta: Almacena la herramienta solicitada.
+                *herramientasDisponibles: Lista de herramientas disponibles.
+                *error: Maneja errores.
+           => Objeto de nueva petición:
+                *newPetition: Contiene los datos de la nueva petición (personal, fecha, herramienta).
+           => Efectos:
+                *Usa useEffect para hacer un fetch inicial de herramientas disponibles desde el backend.
+                *Guarda las herramientas disponibles en el estado correspondiente.
+                *Maneja errores en caso de que el fetch falle.
+           => Manejadores:
+                *handleSubmit: Maneja el envío del formulario de petición. 
+                               Envía los datos al backend y limpia los campos del formulario si la petición es exitosa. 
+                               Maneja errores en caso de que el envío falle.
+           => Renderizado:
+                *Contenedor principal con clases CSS específicas.
+                *Formulario de petición de herramientas con campos para el personal, la fecha y la herramienta.
+                *Lista desplegable para seleccionar la herramienta de entre las disponibles.
+                *Botón para enviar la solicitud.
+                *Muestra mensajes de error si los hay.
+
+*Monté la base de datos en MongoDB my db (stock), intenté conectar lod endpoints

@@ -1,0 +1,6 @@
+Comentarios en las cabeceras de los ficheros de código, con la siguiente
+información:
+o Autor
+o Fecha
+o Descripción
+o Versión de la app
