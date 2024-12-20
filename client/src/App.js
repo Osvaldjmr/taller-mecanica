@@ -4,7 +4,9 @@ import Login from "./components/Login";
 import DashboardEncargado from "./components/DashboardEncargado";
 import DashboardMecanico from "./components/DashboardMecanico";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom"; // se instalo react-router-dom para usar 
-import FetchIncidents from './components/FetchIncidents'
+import FetchIncidents from './components/FetchIncidence'
+import SendPetitions from "./components/SendPetitions";
+import SendIncidence from "./components/SendIncidence";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Estado de autenticación
@@ -56,6 +58,8 @@ function App() {
           <>
             {/* Ruta para el mecánico */}
             <Route path="/" element={<DashboardMecanico />} />
+            <Route path="/peticiones" element={<SendPetitions />} />
+            <Route path="/incidencias" element={<SendIncidence />} />
           </>
         ) : (
           <Route path="/" element={<p>No tienes permisos para acceder.</p>} />

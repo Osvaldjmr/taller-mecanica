@@ -8,6 +8,7 @@
     /* Estilo de fuente general */
     text-align: center;
     /* Centra el texto por defecto */
+    color: white;
 }
 
 /* Encabezado de la página */
@@ -20,32 +21,37 @@
     /* Centramos los elementos verticalmente */
     padding: 10px;
     /* Espaciado interno */
-    border-bottom: 2px solid #ccc;
+    border-bottom: 2px solid #f9983e;
     /* Línea decorativa en la parte inferior */
 }
 
 /* Estilo para el logo */
 .logo {
-    height: 50px;
-    /* Tamaño fijo para el logo */
+    height: 100px !important;
+    width: 106px  !important;
 }
+    /* Tamaño fijo para el logo */
+
 
 /* Estilo para el título del encabezado */
 .title {
     font-size: 24px;
     /* Tamaño grande para destacar */
     font-weight: bold;
+    color: rgb(255, 136, 0)
     /* Texto en negrita */
 }
 
 /* Grupo de botones superiores */
 .button-group {
     display: flex;
-    /* Alineamos los botones en línea horizontal */
-    justify-content: center;
-    /* Centramos los botones */
-    margin: 20px 0;
-    /* Espaciado superior e inferior */
+        flex-direction: center;
+        margin: 20px 0px;
+        color: #372c2c;
+        flex-wrap: wrap;
+        flex-direction: row;
+        gap: 10px;
+        justify-content: center;
 }
 
 /* Estilo base para los botones */
@@ -56,32 +62,32 @@
     /* Espaciado interno del botón */
     font-size: 14px;
     /* Tamaño del texto */
-    background-color: #f8f8f8;
+    background-color: #f6ba82f3;
     /* Color de fondo claro */
     border: 1px solid #ccc;
     /* Borde gris claro */
     border-radius: 5px;
     /* Esquinas redondeadas */
     cursor: pointer;
+    font-weight: bold;
     /* Cambia el cursor al pasar sobre el botón */
 }
 
 /* Estilo del botón al pasar el mouse */
 .button-group button:hover {
-    background-color: #007bff;
+    background-color: #f9983e;
     /* Fondo azul al pasar el mouse */
-    color: white;
+    color:#372c2c;
     /* Texto blanco para contraste */
 }
 
 /* Contenedor para la barra de búsqueda */
 .search-bar {
-    display: flex;
-    /* Alineamos el input y el botón en línea */
-    justify-content: center;
-    /* Centramos la barra de búsqueda */
-    margin: 20px 0;
-    /* Espaciado superior e inferior */
+    display: list-item !important;
+    text-align: right !important;
+    margin-right: 20px !important;
+    /* margin-top: 10px; */
+    padding-top: 10px !important;
 }
 
 /* Estilo del campo de texto para buscar */
@@ -98,21 +104,26 @@
 
 /* Botón de búsqueda */
 .search-button {
-    padding: 5px 10px;
-    /* Espaciado interno */
+    width: 50px;
+    height: 50px;
+    padding: 12px 17px !important;
+    background-color: #333;
+    color: white !important;
+    border: none !important;
+    border-radius: 5px !important;
+    cursor: pointer !important;
     margin-left: 5px;
-    /* Separación con el campo de texto */
-    border: 1px solid #ccc;
-    /* Borde gris claro */
-    background-color: #f8f8f8;
-    /* Fondo claro */
-    cursor: pointer;
-    /* Cambia el cursor al pasar el mouse */
+    
+}
+.search-button img{
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
 }
 
 /* Estilo del botón de búsqueda al pasar el mouse */
 .search-button:hover {
-    background-color: #007bff;
+    background-color: #a6a6a6 !important;
     /* Fondo azul */
     color: white;
     /* Texto blanco */
@@ -120,16 +131,12 @@
 
 /* Contenedor de tarjetas de herramientas */
 .tools-grid {
-    display: flex;
-    /* Usamos flexbox para organizar las tarjetas */
-    justify-content: space-around;
-    /* Espaciamos uniformemente las tarjetas */
-    flex-wrap: wrap;
-    /* Permitimos que las tarjetas bajen de línea si es necesario */
-    gap: 20px;
-    /* Espaciado entre tarjetas */
-    margin-top: 20px;
-    /* Espaciado superior */
+    display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 50px;
+        padding: 20px;
+        width: 1303px;
+        margin: 80px auto;
 }
 
 /* Estilo individual para cada tarjeta */
@@ -137,13 +144,11 @@
     width: 270px;
     /* Ancho fijo para uniformidad */
     border: 1px solid #ccc;
-    /* Borde gris claro */
     border-radius: 10px;
-    /* Esquinas redondeadas */
-    padding: 10px;
-    /* Espaciado interno */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    /* Sombra para un efecto elevado */
+    padding: 15px;
+    box-shadow: 0 1px 5px 2px orange;
+    text-align: center;
+    background-color: #ccc;
     text-align: center;
     /* Centra el contenido de la tarjeta */
 }
@@ -198,24 +203,19 @@
 
 /* Estilo del botón de cerrar sesión */
 .logout-button {
-    padding: 8px 15px;
-    /* Espaciado interno */
+    padding: 10px 20px;
     font-size: 14px;
-    /* Tamaño de texto estándar */
-    background-color: #dc3545;
-    /* Fondo rojo */
-    color: white;
-    /* Texto blanco */
+    background-color: #ccc;
+    color: #333;
     border: none;
-    /* Sin borde adicional */
     border-radius: 5px;
-    /* Esquinas redondeadas */
     cursor: pointer;
-    /* Cambia el cursor al pasar el mouse */
 }
 
 /* Estilo del botón de cerrar sesión al pasar el mouse */
 .logout-button:hover {
-    background-color: #c82333;
-    /* Fondo rojo oscuro */
+    background-color: #939292;
+    color: #fc0505;
+    font-weight: bold;
+    font-size: 18px;
 }
