@@ -56,28 +56,6 @@
   },
   {
     "_id": {
-      "$oid": "676081651e61a3854274d7a2"
-    },
-    "nombre": "multímetro",
-    "tipo": "",
-    "marca": "FIXAMI",
-    "cantidad": "8",
-    "descripcion": "Mide magnitudes eléctricas y realiza comprobaciones en baterías y sistemas.",
-    "foto": ""
-  },
-  {
-    "_id": {
-      "$oid": "676081841e61a3854274d7a4"
-    },
-    "nombre": "destornillador",
-    "tipo": "fijacion",
-    "marca": "megaMech",
-    "cantidad": "6",
-    "descripcion": "Herramienta básica para apretar y aflojar tornillos",
-    "foto": "https://media.istockphoto.com/id/467224344/es/foto/destornillador.jpg?s=1024x1024&w=is&k=20&c=ekadoCu3dEIaC77tS2fUqyignDwNRgY-bWsTxg1HXws="
-  },
-  {
-    "_id": {
       "$oid": "676081b01e61a3854274d7a6"
     },
     "nombre": "Alicates",
@@ -86,15 +64,5 @@
     "cantidad": "7",
     "descripcion": " Aprieta tuercas y tornillos con un par de apriete específico.",
     "foto": "https://media.istockphoto.com/id/1278303048/es/foto/alicates-de-color-amarillo-y-negro-sobre-fondo-blanco-alicates-aislados-en-blanco.jpg?s=1024x1024&w=is&k=20&c=g3cQuTfwt4L-UFPXjSMihiCf5y-IseWaLBfRJav1F1U="
-  },
-  {
-    "_id": {
-      "$oid": "6761a20a8b84f99cf806c38a"
-    },
-    "nombre": "nueva herramienta",
-    "tipo": "nuevo tipo",
-    "marca": "nueva marca",
-    "cantidad": "99",
-    "descripcion": "nueva descripción"
   }
 ]

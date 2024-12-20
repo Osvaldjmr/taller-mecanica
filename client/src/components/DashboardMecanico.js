@@ -1,119 +1,112 @@
-// Importamos las dependencias necesarias
-import React, { useEffect, useState } from "react";
-/* import Incidencias from "./Incidencias";
-import NecesidadDeMaterial from "./NecesidadDeMaterial";
-import HerramientaCard from "./HerramientaCard"; */
-import "../styles/DashboardMecanico.css";
-import logo from "../logo.jpg";
+/**
+ * @file DashboardMecanico.js
+ * @author Natalia
+ * @date 19/12/2024
+ * @description Componente principal para la interfaz del mecánico. Permite realizar peticiones de material, notificar incidencias y visualizar herramientas disponibles.
+ * @version 1.0.0
+ */
 
-import { useNavigate } from "react-router-dom"; // Importa useNavigate
+import React, { useEffect, useState } from "react"; // Manejo de estados y efectos en React
+import { useNavigate } from "react-router-dom"; // Navegación entre rutas
+import { signOut } from "firebase/auth"; // Cierre de sesión con Firebase
+import { auth } from "../firebase"; // Configuración de Firebase
+import "../styles/DashboardMecanico.css"; // Estilos específicos del dashboard
+import logo from "../logo.jpg"; // Logo del sistema
 
-
-import { signOut } from "firebase/auth"; // Funci贸n para cerrar sesi贸n de Firebase
-import { auth } from "../firebase"; // Configuraci贸n de Firebase
-
-// Componente principal DashboardMecanico
+// Componente principal para el Dashboard de Mecánicos
 function DashboardMecanico() {
-    // Estados para manejar los inputs y la l贸gica del componente
-
-    const [busqueda, setBusqueda] = useState(""); // Input para buscar herramientas
-    const [herramientas, setHerramientas] = useState([]); // Lista de herramientas obtenidas del backend (Nuevo c贸digo)
-    const [herramientasFiltradas, setHerramientasFiltradas] = useState([]); // Lista filtrada de herramientas seg煤n la b煤squeda (Nuevo c贸digo)
-    const [error, setError] = useState(null); // Manejo de errores (inicialmente `null`)
-    const navigate = useNavigate(); // Inicializa useNavigate
+    // ======== ESTADOS ======== //
+    const [busqueda, setBusqueda] = useState(""); // Almacena el término de búsqueda
+    const [herramientas, setHerramientas] = useState([]); // Lista completa de herramientas
+    const [herramientasFiltradas, setHerramientasFiltradas] = useState([]); // Lista de herramientas filtradas
+    const [error, setError] = useState(null); // Estado para manejar errores
 
 
-    // Funci贸n para navegar a incidencias
+    const navigate = useNavigate(); // Hook para manejar la navegación
+
+    // ======== FUNCIONES DE NAVEGACIÓN ======== //
+
+    // Navega a la página de notificación de incidencias
+    const handleNavigateToIncidences = () => {
+        navigate("/incidencias");
+    };
+
+    // Navega a la página de petición de material
     const handleNavigateToPetitions = () => {
         navigate("/peticiones");
     };
 
-   // Funci贸n para navegar a incidencias
-   const handleNavigateToIncidences = () => {
-    navigate("/incidencias");
-};
-
-
-
-    //Efecto para cargar las herramientas desde la base de datos al montar el componente
-    //useEffect para cargar herramientas desde el servidor.
+    // ======== EFECTO PARA CARGAR HERRAMIENTAS ======== //
     useEffect(() => {
-        // Realizamos una solicitud al backend para obtener herramientas
-        fetch("http://localhost:3001/herramientas") // Cambiar la URL al endpoint real
+        // Fetch inicial para cargar herramientas desde el backend
+        fetch("http://localhost:3001/herramientas") // Endpoint para obtener herramientas
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Error al obtener las herramientas");
                 }
-                return response.json(); // Parseamos la respuesta como JSON
+                return response.json(); // Convierte la respuesta en JSON
             })
             .then((data) => {
-                setHerramientas(data); // Guardamos las herramientas obtenidas
-                setHerramientasFiltradas(data); // Inicializamos la lista filtrada con todos los datos
+                // Filtra herramientas visibles
+                const visibles = data.filter((herramienta) => herramienta.visible !== false);
+                setHerramientas(visibles); // Almacena las herramientas visibles
+                setHerramientasFiltradas(visibles); // Inicializa la lista filtrada
             })
             .catch((err) => {
                 console.error("Error al cargar las herramientas:", err);
-                setError("Hubo un error al cargar las herramientas."); // Manejamos el error y mostramos un mensaje
+                setError("Hubo un error al cargar las herramientas."); // Muestra mensaje de error
             });
-    }, []); // Solo se ejecuta al montar el componente
+    }, []); // Se ejecuta al montar el componente
 
-    // Manejamos los cambios en el input de b煤squeda
+    // ======== MANEJADORES ======== //
+
+    // Maneja el cambio en el input de búsqueda
     const handleBusquedaChange = (e) => {
-        setBusqueda(e.target.value); // Actualizamos el estado de b煤squeda
-        // Filtramos herramientas basadas en el texto ingresado
+        setBusqueda(e.target.value); // Actualiza el término de búsqueda
         const filtradas = herramientas.filter((herramienta) =>
             herramienta.nombre.toLowerCase().includes(e.target.value.toLowerCase())
         );
-        setHerramientasFiltradas(filtradas); // Actualizamos la lista de herramientas filtradas
+        setHerramientasFiltradas(filtradas); // Actualiza la lista filtrada
     };
 
-    // C贸digo antiguo para buscar herramientas reemplazado:
-    // const handleBuscarStockClick = mostrarHerramientas.filter(herramienta => herramienta.nombre.toLowerCase().includes(busqueda.toLowerCase()));
-
-    // Maneja el cierre de sesi贸n
+    // Maneja el cierre de sesión
     const handleLogout = () => {
         signOut(auth)
             .then(() => {
-                console.log("Sesi贸n cerrada exitosamente");
+                console.log("Sesión cerrada exitosamente");
             })
             .catch((error) => {
-                console.error("Error al cerrar sesi贸n:", error.message);
+                console.error("Error al cerrar sesión:", error.message);
             });
     };
 
+    // ======== RENDERIZADO ======== //
     return (
-        <div className="dashboard-container">
+        <div className="dashboard-container"> {/* Contenedor principal */}
+
             {/* Encabezado */}
             <header className="dashboard-header">
                 <div className="logo-container">
                     <img src={logo} alt="Logo Mechanical" className="logo" />
-                    <h1 className="title">脕rea de Mec谩nicos</h1>
+                    <h1 className="title">Área de Mecánicos</h1>
                 </div>
             </header>
 
             {/* Barra de opciones */}
             <div className="options-container">
-                <button onClick={handleNavigateToIncidences}>Notificar  Incidencias</button>
+                <button className="option-button" onClick={handleNavigateToIncidences}>Notificar Incidencias</button>
+                <button className="option-button" onClick={handleNavigateToPetitions}>Petición de material</button>
 
-                <button className="option-button" onClick={handleNavigateToPetitions}>Petici贸n de material</button>
-                
-                <div className="options-container">
-
-
-
-                    <div className="search-bar">
-                        <input
-                            type="text"
-                            placeholder="Buscar stock"
-                            value={busqueda}
-                            onChange={handleBusquedaChange}
-                            className="search-input"
-                        />
-                        <button className="search-button">馃攳</button>
-                    </div>
+                <div className="search-bar"> {/* Barra de búsqueda */}
+                    <input
+                        type="text"
+                        placeholder="Buscar stock"
+                        value={busqueda}
+                        onChange={handleBusquedaChange}
+                        className="search-input"
+                    />
+                    <button className="search-button">🔍</button>
                 </div>
-
-
-
             </div>
 
             {/* Grid de herramientas */}
@@ -124,25 +117,25 @@ function DashboardMecanico() {
                     herramientasFiltradas.map((herramienta, index) => (
                         <div key={index} className={`tool-card ${herramienta.cantidad === 0 ? "low-stock" : ""}`}>
                             <img src={herramienta.foto || "/default-image.jpg"} alt={herramienta.nombre} className="tool-image" />
-
                             <p><strong>Nombre:</strong> {herramienta.nombre}</p>
                             <p><strong>Tipo:</strong> {herramienta.tipo}</p>
                             <p><strong>Marca:</strong> {herramienta.marca}</p>
-                            <p><strong>Descripci贸n:</strong> {herramienta.descripcion}</p>
+                            <p><strong>Descripción:</strong> {herramienta.descripcion}</p>
                             <p><strong>Cantidad:</strong> <span className={herramienta.cantidad === 0 ? "low-quantity" : ""}>{herramienta.cantidad}</span></p>
                         </div>
                     ))
                 )}
             </main>
 
-            {/* Bot贸n para cerrar sesi贸n */}
+            {/* Botón para cerrar sesión */}
             <div className="logout-container">
                 <button onClick={handleLogout} className="logout-button">
-                    Cerrar Sesi贸n
+                    Cerrar Sesión
                 </button>
             </div>
         </div>
     );
 }
 
+// Exportamos el componente para usarlo en otras partes de la aplicación
 export default DashboardMecanico;

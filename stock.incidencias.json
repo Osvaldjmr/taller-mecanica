@@ -1,10 +1,32 @@
-[{
-  "_id": {
-    "$oid": "67607fd21e61a3854274d794"
+[
+  {
+    "_id": {
+      "$oid": "6764652958d5a17aba7ae812"
+    },
+    "personal": "Juan",
+    "fecha": "17-12-2024",
+    "herramienta": "destornillador",
+    "descripcion": "Pérdida en obra del día 15-12-2024",
+    "estado": "En espera"
   },
-  "personal": "Juan",
-  "fecha": "17-12-2024",
-  "herramienta": "destornillador",
-  "descripcion": "Pérdida en obra del día 15-12-2024",
-  "estado": "En espera"
-}]
+  {
+    "_id": {
+      "$oid": "67646a4df60a693f0f853d88"
+    },
+    "personal": "Mariluz",
+    "fecha": "15-12-2024",
+    "herramienta": "Lámpara",
+    "descripcion": "No funciona desde 15-12-2024",
+    "estado": "En espera"
+  },
+  {
+    "_id": {
+      "$oid": "67646a71f60a693f0f853d89"
+    },
+    "personal": "Don José",
+    "fecha": "17-12-2024",
+    "herramienta": "gato hidráulico",
+    "descripcion": "No funciona como es debido, por favor revisar",
+    "estado": "En espera"
+  }
+]

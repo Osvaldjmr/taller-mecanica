@@ -1,92 +1,110 @@
-import React, { useState } from "react";
+/**
+ * @file FetchPetitions.js
+ * @author
+ * Natalia, Anamaria, Borja, Osvaldo
+ * @date 19/12/2024
+ * @description Componente para listar peticiones, permitiendo aprobar o denegar su estado. Consume una API para obtener las peticiones almacenadas.
+ * @version 1.0.0
+ */
 
+import React, { useEffect, useState } from 'react'; // Manejo de estados y efectos en React
+import '../styles/FetchPetitions.css'; // Estilos específicos del componente
 
+const FetchPetitions = () => {
+    // ======== ESTADOS ======== //
+    const [petitions, setPetitions] = useState([]); // Lista de peticiones
+    const [loading, setLoading] = useState(true); // Indicador de carga
+    const [error, setError] = useState(null); // Manejador de errores
 
-    const FetchPetitions = () => {
-    //Estados para manejar los inputs del formulario
-    const [personal, setPersonal] = useState("");
-    const [fecha, setFecha] = useState("");
-    const [herramienta, setHerramienta] = useState("");
-    const [estado, setEstado] = useState("");
+    // ======== FUNCIONES ======== //
 
-    //Maneja el envio del formulario
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        fetch("http://localhost:3001/peticiones/new", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({nombre: "osvaldo"}),
-        })
-            .then((response) => {
+    // Función para obtener las peticiones desde la API
+    useEffect(() => {
+        const fetchPetitions = async () => {
+            try {
+                const response = await fetch('http://localhost:3001/peticiones'); // Endpoint para obtener las peticiones
                 if (!response.ok) {
-                    throw new Error("Error al enviar la petición");
+                    throw new Error('No se pudieron cargar las peticiones'); // Error en caso de respuesta no OK
                 }
-                return response.json()
-            })
-            .then((data) => {
-                console.log("Peticion enviada: ", data);
-            setPersonal("");
-              setFecha("");
-                setHerramienta("");
-                setEstado("");        //Limpiar el formulario
-          
-            })
-            .catch((error) => {
-                console.error("Error al enviar la petición: ", error);
-            });
-    }
+                const data = await response.json();
+                setPetitions(data); // Guardamos las peticiones en el estado
+            } catch (error) {
+                setError(error.message); // Guardamos el mensaje de error
+            } finally {
+                setLoading(false); // Finalizamos la carga
+            }
+        };
 
-    //Crear un objeto con los datos del formulario
-    const newPetition = {
-        personal,
-        fecha,
-        herramienta,
-        estado,
+        fetchPetitions(); // Llamamos a la función cuando el componente se monte
+    }, []); // Dependencia vacía: solo se ejecuta al montar el componente
+
+    // Función para actualizar el estado de una petición (Aprobada o Denegada)
+    const handleUpdatePetition = async (id, newState) => {
+        try {
+            const response = await fetch(`http://localhost:3001/peticiones/${id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ estado: newState }),
+            });
+
+            if (!response.ok) {
+                throw new Error("Error al actualizar la petición");
+            }
+
+            // Actualizamos el estado local con los cambios
+            setPetitions((prevPetitions) =>
+                prevPetitions.map((petition) =>
+                    petition._id === id ? { ...petition, estado: newState } : petition
+                )
+            );
+        } catch (error) {
+            console.error("Error al actualizar la petición:", error);
+        }
     };
 
-    //Enviar la peticion al backend
-   
+    // ======== RENDERIZADO ======== //
 
+    // Mostrar mensaje de carga
+    if (loading) return <p className="loading">Cargando peticiones...</p>;
+
+    // Mostrar mensaje de error
+    if (error) return <p className="error">Error: {error}</p>;
+
+    // Renderizar las peticiones
     return (
-        <div>
-            <form className="peticion-form" onSubmit={handleSubmit}>
-                <label>
-                    Personal:
-                    <input
-                        type="text"
-                        value={personal}
-                        onChange={(e) => setPersonal(e.target.value)}
-                        required />
-                </label>
-                <label>
-                    Fecha:
-                    <input
-                        type="date"
-                        value={fecha}
-                        onChange={(e) => setFecha(e.target.value)}
-                        required />
-                </label>
-                <label>
-                    Herramienta:
-                    <input
-                        type="text"
-                        value={herramienta}
-                        onChange={(e) => setHerramienta(e.target.value)}
-                        required />
-                </label>
-                <label>
-                    Estado:
-                    <input
-                        type="text"
-                        value={estado}
-                        onChange={(e) => setEstado(e.target.value)}
-                        required />
-                </label>
-                <button type="submit">Enviar Petición</button>
-            </form>
+        <div className="petitions-container">
+            <h3>Lista de Peticiones</h3>
+            <ul className="petitions-list">
+                {petitions.map((petition) => (
+                    <li key={petition._id} className="petition-item">
+                        <p><strong>Personal:</strong> {petition.personal}</p>
+                        <p><strong>Fecha:</strong> {petition.fecha}</p>
+                        <p><strong>Herramienta:</strong> {petition.herramienta}</p>
+                        <p><strong>Estado:</strong> {petition.estado}</p>
+                        {petition.estado === "Abierta" && (
+                            <div className="action-buttons">
+                                <button
+                                    className="approve-button"
+                                    onClick={() => handleUpdatePetition(petition._id, "Aprobada")}
+                                >
+                                    Aprobar
+                                </button>
+                                <button
+                                    className="deny-button"
+                                    onClick={() => handleUpdatePetition(petition._id, "Denegada")}
+                                >
+                                    Denegar
+                                </button>
+                            </div>
+                        )}
+                    </li>
+                ))}
+            </ul>
         </div>
     );
-}
+};
+
+// Exportamos el componente para usarlo en otras partes de la aplicación
 export default FetchPetitions;

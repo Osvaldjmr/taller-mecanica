@@ -1,26 +1,33 @@
+/**
+ * @file SendPetitions.js
+ * @author
+ * Natalia, Anamaria, Borja, Osvaldo
+ * @date 19/12/2024
+ * @description Componente que permite a los mecánicos solicitar herramientas disponibles. Las solicitudes incluyen datos como el personal encargado, la fecha de la solicitud y la herramienta requerida.
+ * @version 1.0.0
+ */
+
 import React, { useState, useEffect } from "react";
 
-
-//Componente para el formulario de peticion de herramientas
 const SendPetitions = () => {
-    //Estados para manejar los inputs del formulario
-    const [personal, setPersonal] = useState("");
-    const [fecha, setFecha] = useState("");
-    const [herramienta, setHerramienta] = useState("");
-    const [herramientasDisponibles, setHerramientasDisponibles] = useState([]);
+    // ======== ESTADOS ======== //
+    const [personal, setPersonal] = useState(""); // Nombre del personal que realiza la solicitud
+    const [fecha, setFecha] = useState(""); // Fecha de la solicitud
+    const [herramienta, setHerramienta] = useState(""); // Herramienta solicitada
+    const [herramientasDisponibles, setHerramientasDisponibles] = useState([]); // Lista de herramientas disponibles
+    const [error, setError] = useState(null); // Estado para manejar errores
 
-
-
-    //Crear un objeto con los datos del formulario
+    // Objeto que contiene los datos de la nueva petición
     const newPetition = {
         personal,
         fecha,
         herramienta,
     };
 
+    // ======== EFECTOS ======== //
     useEffect(() => {
-        // Fetch para obtener las herramientas disponibles
-        fetch("http://localhost:3001/herramientas")
+        // Fetch para obtener la lista de herramientas disponibles
+        fetch("http://localhost:3001/herramientas/")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Error al cargar las herramientas");
@@ -28,74 +35,88 @@ const SendPetitions = () => {
                 return response.json();
             })
             .then((data) => {
-                setHerramientasDisponibles(data); // Asume que `data` es un array de objetos con los nombres de las herramientas
+                setHerramientasDisponibles(data); // Guarda las herramientas disponibles en el estado
             })
             .catch((error) => {
-                console.error("Error al cargar las herramientas: ", error);
+                console.error("Error al cargar las herramientas:", error);
             });
-    }, []);
+    }, []); // Solo se ejecuta al montar el componente
 
+    // ======== MANEJADORES ======== //
 
-    //Maneja el envio del formulario
+    /**
+     * Maneja el envío del formulario de petición.
+     * @param {Event} e - Evento del formulario.
+     */
     const handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault(); // Previene el comportamiento predeterminado del formulario
 
-
-        // Usamos el objeto newPetition que ya tenemos definido
         fetch("http://localhost:3001/peticiones/new", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(newPetition)
+            body: JSON.stringify(newPetition), // Enviar los datos al backend
         })
             .then((response) => {
                 if (!response.ok) {
-                    throw new Error("Error al enviar la petición"); // Enviar todos los datos del formulario
+                    throw new Error("Error al enviar la petición");
                 }
-                return response.json()
+                return response.json();
             })
             .then((data) => {
-                console.log("Peticion enviada: ", data);
+                console.log("Petición enviada:", data);
+                // Limpia los campos del formulario
                 setPersonal("");
                 setFecha("");
-                setHerramienta("");       //Limpiar el formulario
-
+                setHerramienta("");
+                setError(null); // Limpia los errores si los hay
             })
             .catch((error) => {
-                console.error("Error al enviar la petición: ", error);
+                console.error("Error al enviar la petición:", error);
+                setError("No se pudo enviar la petición. Inténtelo nuevamente.");
             });
-    }
+    };
 
-
-    //Enviar la peticion al backend
-
-
+    // ======== RENDERIZADO ======== //
     return (
-        <div>
+        <div className="petition-container">
+            <h2>Formulario de Petición de Herramientas</h2>
             <form className="peticion-form" onSubmit={handleSubmit}>
+                {error && <p className="error-message">{error}</p>} {/* Mostrar errores */}
+
+                {/* Campo para el personal */}
                 <label>
                     Personal:
                     <input
                         type="text"
                         value={personal}
                         onChange={(e) => setPersonal(e.target.value)}
-                        required />
+                        required
+                        className="form-input"
+                    />
                 </label>
+
+                {/* Campo para la fecha */}
                 <label>
                     Fecha:
                     <input
                         type="date"
                         value={fecha}
                         onChange={(e) => setFecha(e.target.value)}
-                        required />
+                        required
+                        className="form-input"
+                    />
                 </label>
+
+                {/* Campo para seleccionar la herramienta */}
                 <label>
                     Herramienta:
                     <select
                         value={herramienta}
                         onChange={(e) => setHerramienta(e.target.value)}
                         required
+                        className="form-input"
                     >
                         <option value="">Seleccione una herramienta</option>
                         {herramientasDisponibles.map((herr, index) => (
@@ -106,9 +127,13 @@ const SendPetitions = () => {
                     </select>
                 </label>
 
-                <button type="submit">Enviar Petición</button>
+                {/* Botón para enviar la solicitud */}
+                <button type="submit" className="submit-button">
+                    Enviar Petición
+                </button>
             </form>
         </div>
     );
-}
-export default SendPetitions;
+};
+
+export default SendPetitions; // Exporta el componente

@@ -1,76 +1,24 @@
-const { MongoClient } = require("mongodb");
-const url = "mongodb://localhost:27017";
-const client = new MongoClient(url);
-const dbName = "stock";
-
-const crearBaseDeDatos = async () => {
-    try {
-        await client.connect();
-        console.log("Conexión exitosa a MongoDB");
-    } finally {
-        await client.close();
-    }
-};
-
-const crearColeccion = async (nombreColeccion) => {
-    try {
-        await client.connect();
-        const db = client.db(dbName);
-        await db.createCollection(nombreColeccion);
-        console.log(`Colección ${nombreColeccion} creada.`);
-    } finally {
-        await client.close();
-    }
-};
-
-const insertarDocumento = async (coleccion, documento) => {
-    try {
-        await client.connect();
-        const db = client.db(dbName);
-        const collection = db.collection(coleccion);
-        const resultado = await collection.insertOne(documento);
-        console.log("Documento insertado:", resultado.insertedId);
-    } finally {
-        await client.close();
-    }
-};
-
-const verTodos = async (coleccion) => {
-    try {
-        await client.connect();
-        const db = client.db(dbName);
-        const collection = db.collection(coleccion);
-        const documentos = await collection.find().toArray();
-        return documentos;
-    } finally {
-        await client.close();
-    }
-};
-
-module.exports = {
-    crearBaseDeDatos,
-    crearColeccion,
-    insertarDocumento,
-    verTodos,
-};
-
-/* 
-///////////////////////////////////////////////////////////////////////////////////////
-
-
 const { MongoClient } = require('mongodb');
 
-const mydb = "stock";
+// Configuración de la base de datos
+const mydb = "stock"; // Nombre de la base de datos
+const url = "mongodb://127.0.0.1:27017/"; // URL de conexión
 
-const url = "mongodb://127.0.0.1:27017/";
-
+/**
+ * Conecta al cliente de MongoDB.
+ * @returns {Promise<MongoClient>}
+ */
 async function connectToMongo() {
     const client = new MongoClient(url);
     await client.connect();
     return client;
 }
 
-//Creacion de una BD 
+// ======= OPERACIONES CON LA BASE DE DATOS ======= //
+
+/**
+ * Crea o conecta una base de datos.
+ */
 async function crearBaseDeDatos() {
     const client = await connectToMongo();
     const db = client.db(mydb);
@@ -78,7 +26,10 @@ async function crearBaseDeDatos() {
     await client.close();
 }
 
-//Creacion de una coleccion dentro de una BD
+/**
+ * Crea una nueva colección en la base de datos.
+ * @param {string} coleccion - Nombre de la colección.
+ */
 async function crearColeccion(coleccion) {
     const client = await connectToMongo();
     const db = client.db(mydb);
@@ -87,7 +38,13 @@ async function crearColeccion(coleccion) {
     await client.close();
 }
 
-//Insertar dentro de una coleccion de una BD
+// ======= OPERACIONES CON DOCUMENTOS ======= //
+
+/**
+ * Inserta un documento en una colección.
+ * @param {string} coleccion - Nombre de la colección.
+ * @param {Object} documento - Documento a insertar.
+ */
 async function insertarDocumento(coleccion, documento) {
     const client = await connectToMongo();
     const db = client.db(mydb);
@@ -97,64 +54,82 @@ async function insertarDocumento(coleccion, documento) {
     await client.close();
 }
 
-// Obtener datos del primer elemento dentro de una colección
+/**
+ * Consulta el primer documento de una colección.
+ * @param {string} coleccion - Nombre de la colección.
+ * @returns {Promise<Object>} - Primer documento encontrado.
+ */
 async function obtenerPrimerElemento(coleccion) {
     const client = await connectToMongo();
     try {
         const db = client.db(mydb);
         const collection = db.collection(coleccion);
         const result = await collection.findOne({});
-        console.log(result.nombre);
         return result;
     } finally {
         await client.close();
     }
 }
 
-// Ver todos los elementos
+/**
+ * Consulta todos los documentos de una colección.
+ * @param {string} coleccion - Nombre de la colección.
+ * @returns {Promise<Array>} - Lista de documentos.
+ */
 async function verTodos(coleccion) {
     const client = await connectToMongo();
     try {
         const db = client.db(mydb);
         const collection = db.collection(coleccion);
         const result = await collection.find({}).toArray();
-        console.log(result);
         return result;
     } finally {
         await client.close();
     }
 }
 
-// Query simple
+/**
+ * Realiza una consulta específica en una colección.
+ * @param {string} coleccion - Nombre de la colección.
+ * @param {Object} query - Consulta a realizar.
+ * @returns {Promise<Array>} - Resultados de la consulta.
+ */
 async function querySimple(coleccion, query) {
     const client = await connectToMongo();
     try {
         const db = client.db(mydb);
         const collection = db.collection(coleccion);
         const result = await collection.find(query).toArray();
-        console.log(result);
         return result;
     } finally {
         await client.close();
     }
 }
 
-// Sort por un criterio (campo)
+/**
+ * Ordena los documentos de una colección por un campo.
+ * @param {string} coleccion - Nombre de la colección.
+ * @param {string} campo - Campo por el cual ordenar.
+ * @param {number} orden - 1 para ascendente, -1 para descendente.
+ * @returns {Promise<Array>} - Documentos ordenados.
+ */
 async function sortPorCampo(coleccion, campo, orden = 1) {
     const client = await connectToMongo();
     try {
         const db = client.db(mydb);
         const collection = db.collection(coleccion);
         const result = await collection.find().sort({ [campo]: orden }).toArray();
-        console.log(result);
         return result;
     } finally {
         await client.close();
     }
 }
 
-
-//Borrar  
+/**
+ * Elimina un documento de una colección.
+ * @param {string} coleccion - Nombre de la colección.
+ * @param {Object} filtro - Filtro para identificar el documento a eliminar.
+ */
 async function borrarDocumento(coleccion, filtro) {
     const client = await connectToMongo();
     const db = client.db(mydb);
@@ -164,18 +139,33 @@ async function borrarDocumento(coleccion, filtro) {
     await client.close();
 }
 
-
-//Actualizar
+/**
+ * Actualiza un documento en una colección.
+ * @param {string} coleccion - Nombre de la colección.
+ * @param {Object} filtro - Filtro para identificar el documento.
+ * @param {Object} actualizacion - Datos a actualizar.
+ */
 async function actualizarDocumento(coleccion, filtro, actualizacion) {
     const client = await connectToMongo();
     const db = client.db(mydb);
     const collection = db.collection(coleccion);
-    const resultado = await collection.updateOne(filtro, { $set: actualizacion });
-    console.log(`${resultado.modifiedCount} documento(s) actualizado(s).`);
-    await client.close();
+
+    try {
+        const resultado = await collection.updateOne(filtro, { $set: actualizacion });
+        console.log("Resultado de updateOne:", resultado); // Log de depuración
+        return resultado; // Retorna el resultado completo
+    } catch (error) {
+        console.error("Error en actualizarDocumento:", error);
+        throw error; // Lanza el error al endpoint
+    } finally {
+        await client.close();
+    }
 }
 
 
+
+
+// Exporta todas las funciones
 module.exports = {
     crearBaseDeDatos,
     crearColeccion,
@@ -185,5 +175,5 @@ module.exports = {
     querySimple,
     sortPorCampo,
     borrarDocumento,
-    actualizarDocumento
-}; */
+    actualizarDocumento,
+};

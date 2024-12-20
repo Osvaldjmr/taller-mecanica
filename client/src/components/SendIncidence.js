@@ -1,16 +1,23 @@
-import React, { useState, useEffect } from "react";
+/**
+ * @file SendIncidence.js
+ * @author
+ * Natalia, Anamaria, Borja, Osvaldo
+ * @date 19/12/2024
+ * @description Componente para gestionar el envío de incidencias desde los mecánicos al sistema. Las incidencias incluyen información como el personal encargado, la fecha, la herramienta afectada y una descripción del problema.
+ * @version 1.0.0
+ */
+
+import React, { useState, useEffect } from "react"; // Importaciones de React
 
 const SendIncidence = () => {
-    //Estados para manejar los inputs del formulario
-    const [personal, setPersonal] = useState("");
-    const [fecha, setFecha] = useState("");
-    const [herramienta, setHerramienta] = useState("");
-    const [descripcion, setDescripcion] = useState("")
-    const [herramientasDisponibles, setHerramientasDisponibles] = useState([]);
+    // ======== ESTADOS ======== //
+    const [personal, setPersonal] = useState(""); // Nombre del personal
+    const [fecha, setFecha] = useState(""); // Fecha de la incidencia
+    const [herramienta, setHerramienta] = useState(""); // Herramienta afectada
+    const [descripcion, setDescripcion] = useState(""); // Descripción del problema
+    const [herramientasDisponibles, setHerramientasDisponibles] = useState([]); // Lista de herramientas disponibles
 
-
-
-    //Crear un objeto con los datos del formulario
+    // Objeto para la nueva incidencia
     const newIncidence = {
         personal,
         fecha,
@@ -18,8 +25,7 @@ const SendIncidence = () => {
         descripcion,
     };
 
-
-
+    // ======== EFECTOS ======== //
     useEffect(() => {
         // Fetch para obtener las herramientas disponibles
         fetch("http://localhost:3001/herramientas")
@@ -30,68 +36,76 @@ const SendIncidence = () => {
                 return response.json();
             })
             .then((data) => {
-                setHerramientasDisponibles(data); // Asume que `data` es un array de objetos con los nombres de las herramientas
+                setHerramientasDisponibles(data); // Guarda las herramientas disponibles
             })
             .catch((error) => {
-                console.error("Error al cargar las herramientas: ", error);
+                console.error("Error al cargar las herramientas:", error);
             });
-    }, []);
+    }, []); // Solo se ejecuta al montar el componente
 
-    //Maneja el envio del formulario
+    // ======== MANEJADORES ======== //
+
+    /**
+     * Maneja el envío del formulario de incidencia.
+     * @param {Event} e - Evento del formulario.
+     */
     const handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault(); // Previene el comportamiento predeterminado del formulario
 
-
-        // Usamos el objeto newPetition que ya tenemos definido
         fetch("http://localhost:3001/incidencias/new", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(newIncidence)
+            body: JSON.stringify(newIncidence), // Enviar los datos al backend
         })
             .then((response) => {
                 if (!response.ok) {
-                    throw new Error("Error al enviar la petición"); // Enviar todos los datos del formulario
+                    throw new Error("Error al enviar la incidencia");
                 }
-                return response.json()
+                return response.json();
             })
             .then((data) => {
-                console.log("Incidencia enviada: ", data);
+                console.log("Incidencia enviada:", data);
+                // Limpia los campos del formulario
                 setPersonal("");
                 setFecha("");
                 setHerramienta("");
-                setDescripcion("")       //Limpiar el formulario
-
+                setDescripcion("");
             })
             .catch((error) => {
-                console.error("Error al enviar la incidencia: ", error);
+                console.error("Error al enviar la incidencia:", error);
             });
-    }
+    };
 
-
-    //Enviar la peticion al backend
-
-
+    // ======== RENDERIZADO ======== //
     return (
         <div>
+            <h2>Formulario de Envío de Incidencias</h2>
             <form className="incidence-form" onSubmit={handleSubmit}>
+                {/* Campo para el personal */}
                 <label>
                     Personal:
                     <input
                         type="text"
                         value={personal}
                         onChange={(e) => setPersonal(e.target.value)}
-                        required />
+                        required
+                    />
                 </label>
+
+                {/* Campo para la fecha */}
                 <label>
                     Fecha:
                     <input
                         type="date"
                         value={fecha}
                         onChange={(e) => setFecha(e.target.value)}
-                        required />
+                        required
+                    />
                 </label>
+
+                {/* Campo para seleccionar la herramienta */}
                 <label>
                     Herramienta:
                     <select
@@ -107,19 +121,23 @@ const SendIncidence = () => {
                         ))}
                     </select>
                 </label>
+
+                {/* Campo para la descripción */}
                 <label>
                     Descripción:
                     <input
                         type="text"
                         value={descripcion}
                         onChange={(e) => setDescripcion(e.target.value)}
-                        required />
+                        required
+                    />
                 </label>
 
-
+                {/* Botón para enviar el formulario */}
                 <button type="submit">Enviar Incidencia</button>
             </form>
         </div>
     );
-}
-export default SendIncidence;
+};
+
+export default SendIncidence; // Exporta el componente

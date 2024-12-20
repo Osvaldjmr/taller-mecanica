@@ -1,3 +1,0 @@
--ramas develop creada y actualizada
--versionado actualizandoce
---implemnetacion del primer formulario para encargado/mecaniuco
